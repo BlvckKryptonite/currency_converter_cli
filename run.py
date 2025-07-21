@@ -31,7 +31,7 @@ class CurrencyExchangeApp:
         for _ in range(int(duration * 2)):
             print(".", end="", flush=True)
             time.sleep(0.5)
-    
+
     def validate_currency_code(self, currency: str) -> bool:
         """
         Validate currency code format (3 uppercase letters) eg: USD, EUR, GBP. 
@@ -48,4 +48,31 @@ class CurrencyExchangeApp:
 
         # Regular expression checks that currency matches 3 uppercase letters
         return bool(re.match(r'^[A-Z]{3}$', currency.upper()))
+    
+    def validate_amount(self, amount_str: str) -> Tuple[bool, float]:
+        """
+        Validates and converts amount string to float.
+
+        Args:
+            amount_str (str): String representation of amount
+
+        Returns:
+            Tuple[bool, float]: (is_valid, amount_value)
+        """
+        try:
+            # Attempts to convert the string to a float
+            amount = float(amount_str)
+
+            # Checks if the amount is positive to avoid invalid inputs
+            # Negative or zero amounts are considered invalid
+            if amount <= 0:
+                return False, 0.0
+
+            return True, amount
+
+        except ValueError:
+            # If conversion fails/non-numeric input return invalid.
+            return False, 0.0
+
+
 
