@@ -73,6 +73,51 @@ class CurrencyExchangeApp:
         except ValueError:
             # If conversion fails/non-numeric input return invalid.
             return False, 0.0
+        
+    def fetch_supported_currencies(self) -> bool:
+        """
+        Fetch our supported currencies from the external API.
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        try:
+            # To display a simple loading animation for user experience
+            self.show_loading("Fetching supported currencies")
+
+            # Make GET request to the API's /currencies.json 
+            response = requests.get(
+                f"{self.api_base}/currencies.json", timeout=10
+            )
+            # Raise error for any input not among 200 supported currencies
+            response.raise_for_status()
+
+            # Parse the JSON response
+            data = response.json()
+
+            # Cache the supported currencies if the response has content
+            # *** I WILL NEED TO EDIT/STYLIZE PRINT STATEMENTS LATER ***
+            if data:
+                self.supported_currencies = data
+                return True
+            else:
+                print("No currencies data")
+                return False
+
+        # To handle network-related and API data decoding errors
+        except requests.exceptions.Timeout:
+            print("Request timed out.")
+            return False
+        except requests.exceptions.ConnectionError:
+            print("Cannot connect to the API.")
+            return False
+        except requests.exceptions.RequestException as e:
+            print(" API request failed")
+            return False
+        except json.JSONDecodeError:
+            print("Invalid format from API")
+            return False
+
 
 
 
