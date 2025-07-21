@@ -120,6 +120,58 @@ class CurrencyExchangeApp:
             print("Invalid format from API")
             return False
         
+    def get_exchange_rate(self, from_currency: str, to_currency: str) -> Optional[float]:
+        """
+        Gets exchange rate between two currencies.
+
+        Args:
+            from currency (str): Source/initial currency code (such as "USD")
+            to currency (str): Target/final currency code (e.g., "EUR")
+
+        Returns:
+            Exchange rate as a float or None if something fails
+        """
+        try:
+            # Display loading animation again for UX polish
+            self.show_loading("Fetching exchange rate")
+
+            # Build the API endpoint URL using the from_currency
+            url = f"{self.api_base}/currencies/{from_currency.lower()}.json"
+
+            # Make the GET request to fetch the currency data
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()  # Raises an error if the request failed (non-200 status)
+
+            # Parse the JSON response
+            data = response.json()
+
+            # Checks if the from_currency key exists in the response
+            if data and from_currency.lower() in data:
+                # Retrieves the nested dictionary containing exchange rates
+                rates = data[from_currency.lower()]
+
+                # Return the specific rate for the final/to_currency
+                # IMPORTANT:
+                # I WILL NEED TO EDIT THE USER PRINT STATEMENTS LATER 
+                return rates.get(to_currency.lower())
+            else:
+                print(f"Currency {from_currency} invalid")
+                return None
+
+        # Handle different error scenarios as well:
+        except requests.exceptions.Timeout:
+            print("Request timed out.")
+            return None
+        except requests.exceptions.ConnectionError:
+            print("Cannot connect to the API.")
+            return None
+        except requests.exceptions.RequestException as e:
+            print(f"API request failed: {e}")
+            return None
+        except json.JSONDecodeError:
+            print("Invalid format from API")
+            return None
+
     def convert_currency(self, amount: float, from_currency: str, to_currency: str) -> Optional[float]:
         """
         Convert entered amount from one currency to another.
