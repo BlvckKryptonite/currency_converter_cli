@@ -186,9 +186,22 @@ class CurrencyExchangeApp:
         """
         # Use the pre existing get_exchange_rate method for conversion
         rate = self.get_exchange_rate(from_currency, to_currency)
+        # If the rate is valid, multiply it with the input amount,
+        # and get the converted value
         if rate is not None:
             return amount * rate
         return None
+    
+    def display_welcome(self):   
+        """Display welcome message and application information for engaging
+        user experience."""
+        # IMPORTANT: 
+        # I WILL NEED TO EDIT & STYLIZE THE PRINT STATEMENTS LATER
+
+        print("MUMA's CURRENCY EXCHANGE CLI APPLICATION")
+        print("Welcome!")
+        print("Convert currencies.")  # Briefly describe what it does
+        print("API by..")  # API INFORMATION
 
 
 
