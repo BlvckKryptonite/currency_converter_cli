@@ -31,3 +31,21 @@ class CurrencyExchangeApp:
         for _ in range(int(duration * 2)):
             print(".", end="", flush=True)
             time.sleep(0.5)
+    
+    def validate_currency_code(self, currency: str) -> bool:
+        """
+        Validate currency code format (3 uppercase letters) eg: USD, EUR, GBP. 
+
+        Args:
+            currency (str): Currency code to validate
+
+        Returns:
+            bool: True if valid format, False otherwise
+        """
+        # Return False if the input is empty or not exactly 3 characters
+        if not currency or len(currency) != 3:
+            return False
+
+        # Regular expression checks that currency matches 3 uppercase letters
+        return bool(re.match(r'^[A-Z]{3}$', currency.upper()))
+
