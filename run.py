@@ -8,6 +8,7 @@ from typing import Dict, List, Optional, Tuple
 # TODO: Clean up unused imports later
 # (Currently imported for planned functionality)
 
+
 class CurrencyExchangeApp:
     """Main application class for currency exchange operations."""
     
@@ -98,6 +99,7 @@ class CurrencyExchangeApp:
             # Cache the supported currencies if the response has content
             # *** I WILL NEED TO EDIT/STYLIZE PRINT STATEMENTS LATER ***
             if data:
+                # Caches the currency list in memory for later use
                 self.supported_currencies = data
                 return True
             else:
@@ -112,11 +114,30 @@ class CurrencyExchangeApp:
             print("Cannot connect to the API.")
             return False
         except requests.exceptions.RequestException as e:
-            print(" API request failed")
+            print(f"API request failed: {e}")
             return False
         except json.JSONDecodeError:
             print("Invalid format from API")
             return False
+        
+    def convert_currency(self, amount: float, from_currency: str, to_currency: str) -> Optional[float]:
+        """
+        Convert entered amount from one currency to another.
+
+        Args:
+            amount (float): Amount to convert
+            from_currency (str): Source/initial currency code
+            to curency (str): Target/final currency code
+
+        Returns:
+            Converted amount or None if failed
+        """
+        # Use the pre existing get_exchange_rate method for conversion
+        rate = self.get_exchange_rate(from_currency, to_currency)
+        if rate is not None:
+            return amount * rate
+        return None
+
 
 
 
