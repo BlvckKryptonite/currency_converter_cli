@@ -213,6 +213,22 @@ class CurrencyExchangeApp:
         print("2. Convert Currency")
         print("3. Supported Currencies")
         print("4. Exit")
+    
+    def get_user_choice(self) -> str:
+        """
+        Get and validate user menu choice.
+        
+        Returns:
+            str: User's validated choice
+        """
+        valid_choices = ['1', '2', '3', '4']
+        while True:
+            #  An infinite loop to keep asking until a valid input is given.
+            choice = input("Enter your choice (1-4): ").strip() # Strips whitespace
+            if choice in valid_choices:
+                return choice
+            else:
+                print("Invalid choice. Please enter a number between 1 and 4.")
 
 
 
