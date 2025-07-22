@@ -203,6 +203,17 @@ class CurrencyExchangeApp:
         print("Convert currencies.")  # Briefly describe what it does
         print("API by..")  # API INFORMATION
 
+    def display_menu(self):
+        """This will display the main menu options."""
+        # IMPORTANT: 
+        # I WILL NEED TO EDIT & STYLIZE THE PRINT STATEMENTS LATER
+
+        print("MAIN MENU")
+        print("1. Exchange Rate")
+        print("2. Convert Currency")
+        print("3. Supported Currencies")
+        print("4. Exit")
+
 
 
 
