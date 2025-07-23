@@ -229,7 +229,32 @@ class CurrencyExchangeApp:
                 return choice
             else:
                 print("Invalid choice. Please enter a number between 1 and 4.")
+    
+    def get_currency_input(self, prompt: str) -> str:
+        """
+        Get and validate currency code input from user.
 
+        Args:
+            String prmpt: Prompt message for user
+
+        Returns:
+            A message: Validated currency code in uppercase
+        """
+        # IMPORTANT:
+        # MIGHT NEED TO EDIT & STYLIZE THE PRINT STATEMENTS LATER
+        while True:
+            # Trims whitespace, ensures input is uppercase
+            currency = input(prompt).strip().upper()
+            if self.validate_currency_code(currency):
+                return currency
+        else:
+            print("Invalid currency code. Please enter a 3-letter code (e.g: USD, EUR).") 
+        # Check if we have currency list and validate against it
+        if self.supported_currencies and currency.lower() not in self.supported_currencies:
+            print(f"'{currency}' is not a supported currency.")
+            print("Use option 3 to view supported currencies.")
+
+            return currency
 
 
 
