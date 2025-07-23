@@ -255,7 +255,22 @@ class CurrencyExchangeApp:
             print("Use option 3 to view supported currencies.")
 
             return currency
-
+    
+    def get_amount_input(self) -> float:
+        """ 
+        Get and validate amount input from user.
+        Returns:
+            float: Validated amount
+        """
+        while True:
+            amount_str = input("Enter amount to convert: ").strip()
+            is_valid, amount = self.validate_amount(amount_str)
+            
+            if not is_valid:
+                print("❌ Invalid amount. Please enter a positive number.")
+                continue
+                
+            return amount
 
 
 
