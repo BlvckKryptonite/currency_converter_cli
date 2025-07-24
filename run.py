@@ -333,3 +333,37 @@ class CurrencyExchangeApp:
             # If API or rate fetching fails, notify the user
             print("\n Failed to convert currency. Please try again.")
 
+    def handle_supported_currencies(self):
+        """
+        Will display the list of supported currencies.
+        Fetches them from the API if not already cached.
+        """
+    # Section heading
+    print("\n SUPPORTED CURRENCIES: ")
+    print("-" * 35)
+
+    # If currencies haven't been fetched yet, fetch and cache them
+    if not self.supported_currencies:
+        if not self.fetch_supported_currencies():
+            print("Failed to fetch supported currencies. Please try again.")
+            return
+
+    # If the currency is available, display them:
+    if self.supported_currencies:
+        print(f" Found {len(self.supported_currencies)} supported currencies:\n")
+        currencies = list(self.supported_currencies.keys())
+        currencies.sort()
+
+        # Display currencies in rows of 4 to fit terminals
+        for i in range(0, len(currencies), 4):
+            row = currencies[i:i+4]
+            formatted_row = [f"{curr:>3}" for curr in row]  # Right align curr codes
+            print("  ".join(formatted_row))
+
+        # Shows total count and prints helpful instructions
+        print(f"\n Total: {len(currencies)} currencies available")
+        print(" Use these 3-letter codes for conversions and rates: ")
+    else:
+        print("No currency data available.")
+
+
