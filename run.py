@@ -271,6 +271,25 @@ class CurrencyExchangeApp:
                 continue
                 
             return amount
+        
+    def handle_exchange_rate(self):
+        """Handle the exchange rate viewing functionality."""
+        print("\n VIEW EXCHANGE RATE")
+        print("-" * 30)
 
-
-
+        from_currency = self.get_currency_input("Enter source currency: ")
+        to_currency = self.get_currency_input("Enter target currency: ")
+        
+        # If the user selects the same currency, we can skip the API call
+        if from_currency == to_currency:
+            print("Same currency selected. Exchange rate is 1.0000")
+            return
+        rate = self.get_exchange_rate(from_currency, to_currency)
+        if rate is not None:
+            print(f"\n SUCCESS!")
+            print(f"Exchange Rate: 1 {from_currency} = {rate:.4f} {to_currency}")
+            # Shows a timestamp for when the data was fetched for user
+            # reference. This helps build user trust.
+            print(f"Data fetched on: {time.strftime('%Y-%m-%d %H:%M:%S')}") 
+        else:
+            print("\n Failed to fetch exchange rate. Please try again.")
