@@ -279,7 +279,7 @@ class CurrencyExchangeApp:
 
         from_currency = self.get_currency_input("Enter source currency: ")
         to_currency = self.get_currency_input("Enter target currency: ")
-        
+
         # If the user selects the same currency, we can skip the API call
         if from_currency == to_currency:
             print("Same currency selected. Exchange rate is 1.0000")
@@ -293,3 +293,43 @@ class CurrencyExchangeApp:
             print(f"Data fetched on: {time.strftime('%Y-%m-%d %H:%M:%S')}") 
         else:
             print("\n Failed to fetch exchange rate. Please try again.")
+        
+    def handle_currency_conversion(self):
+        """
+        Handles the currency conversion functionality.
+        Asks the user for source/target currencies and an amount,
+        then performs the conversion and displays the result afterwards.
+        """
+        # Section Header
+        print("\n CONVERT CURRENCY")
+        print("-" * 25)
+
+        # Ask the user for the source and target currencies using validation
+        from_currency = self.get_currency_input("Enter source currency (e.g., USD): ")
+        to_currency = self.get_currency_input("Enter target currency (e.g., EUR): ")
+
+        # Asks for the amount to convert and validate it
+        amount = self.get_amount_input()
+
+        # If same currency for both, no conversion needed
+        if from_currency == to_currency:
+            print(f"\n Same currency selected.")
+            print(f" {amount:.2f} {from_currency} = {amount:.2f} {to_currency}")
+            return
+
+        converted_amount = self.convert_currency(amount, from_currency, to_currency)
+        # IMPORTANT:
+        # I MAY COME & STYLIZE THE PRINT STATEMENTS LATER
+        # ADD SOME EMOJIS FOR BETTER UX Brooo 👍🏾
+
+        # Displays the result if the conversion is successful:
+        if converted_amount is not None:
+            print(f"\n CONVERSION SUCCESSFUL!")
+            print(f"💰 {amount:.2f} {from_currency} = {converted_amount:.2f} {to_currency}")
+            print(f" Rate: 1 {from_currency} = {converted_amount / amount:.4f} {to_currency}")
+            # Date & Time:
+            print(f"Converted on: {time.strftime('%Y-%m-%d %H:%M:%S')}")
+        else:
+            # If API or rate fetching fails, notify the user
+            print("\n Failed to convert currency. Please try again.")
+
