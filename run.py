@@ -357,7 +357,9 @@ class CurrencyExchangeApp:
         # Display currencies in rows of 4 to fit terminals
         for i in range(0, len(currencies), 4):
             row = currencies[i:i+4]
-            formatted_row = [f"{curr:>3}" for curr in row]  # Right align curr codes
+            formatted_row = [
+                f"{curr:>3}" for curr in row
+            ]  # Right align currency codes
             print("  ".join(formatted_row))
 
         # Shows total count and prints helpful instructions
@@ -365,5 +367,28 @@ class CurrencyExchangeApp:
         print(" Use these 3-letter codes for conversions and rates: ")
     else:
         print("No currency data available.")
+
+    def ask_continue(self) -> bool:
+        """
+        Ask the user if they want to perform another operation.
+
+        Returns:
+            bool: True if user wants to continue, False if not.
+        """
+        # Loop until a valid input is received
+    while True:
+        # Will print a separator for better UX
+        print("\n" + "─" * 50)
+        continue_choice = input("Would you like to perform another operation? (y/n): ").strip().lower()
+
+        if continue_choice in ['y', 'yes']:
+            return True
+
+        elif continue_choice in ['n', 'no']:
+            return False
+
+        else:
+            print("❌ Please enter 'y' for yes or 'n' for no.")
+
 
 
