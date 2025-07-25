@@ -197,7 +197,8 @@ class CurrencyExchangeApp:
         print("=" * 60)
         print(" WELCOME TO MUMA'S CURRENCY EXCHANGE CLI 👋".center(60))
         print("This app helps you check exchange rates and convert "
-              "currencies in real time 🙂")
+              "currencies ")
+        print("in real time 🙂".center(60))
         print("\n")
         print("Data provided by Fawaz Ahmed Currency API".center(60))
         print("=" * 60)
@@ -374,7 +375,6 @@ class CurrencyExchangeApp:
 
             # Shows total count and prints helpful instructions
             print(f"\n Total: {len(currencies)} currencies available")
-            print(" 💡 Use any of these codes for conversions and rates: ")
             print("\n")
 
             # Display currencies in rows of 4 to fit terminals
@@ -382,6 +382,8 @@ class CurrencyExchangeApp:
                 row = currencies[i:i+4]
                 formatted_row = [f"{curr:>3}" for curr in row]
                 print("  ".join(formatted_row))
+            print("\n")
+            print("💡 Use any of the codes above for conversions and rates 💡")
         else:
             print(" ❌ No currency data available.")
 
