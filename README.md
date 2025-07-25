@@ -107,6 +107,10 @@ git clone https://github.com/BlvckKryptonite/currency_converter_cli.git
 
 - pip install -r requirements.txt
 
+### 4. Install requests and add it to the requirements.txt file
+
+- pip install requests
+
 ### 4. Run the application
 
 - python3 run.py
