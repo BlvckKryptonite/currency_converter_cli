@@ -194,13 +194,13 @@ class CurrencyExchangeApp:
         """Display welcome message and application information for engaging
         user experience."""
 
-        print("=" * 78)
-        print(" WELCOME TO MUMA'S CURRENCY EXCHANGE CLI 👋".center(78))
+        print("=" * 60)
+        print(" WELCOME TO MUMA'S CURRENCY EXCHANGE CLI 👋".center(60))
         print("This app helps you check exchange rates and convert "
               "currencies in real time 🙂")
         print("\n")
-        print("Data provided by Fawaz Ahmed Currency API".center(78))
-        print("=" * 78)
+        print("Data provided by Fawaz Ahmed Currency API".center(60))
+        print("=" * 60)
 
     def display_menu(self):
         """This will display the main menu options."""
@@ -413,16 +413,16 @@ class CurrencyExchangeApp:
         Provides a friendly and professional sign-off.
         """
         # Border line for visual separation
-        print("\n" + "=" * 78)
+        print("\n" + "=" * 60)
 
-        print(" Thank you for using Muma's Currency Exchange CLI!".center(78))
-        print(" 👋 ".center(78))
+        print(" Thank you for using Muma's Currency Exchange CLI!".center(60))
+        print(" 👋 ".center(60))
         print("\n")
-        print(" I truly hope you enjoyed using it! 🙂".center(78))
+        print(" I truly hope you enjoyed using it! 🙂".center(60))
         print("\n")
-        print("Have an absolutely wonderful day! 🌟".center(78))
+        print("Have an absolutely wonderful day! 🌟".center(60))
 
-        print("=" * 78)
+        print("=" * 60)
 
     def run(self):
         """
