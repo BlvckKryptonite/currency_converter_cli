@@ -205,14 +205,16 @@ class CurrencyExchangeApp:
 
     def display_menu(self):
         """This will display the main menu options."""
-        # IMPORTANT: 
-        # I WILL NEED TO EDIT & STYLIZE THE PRINT STATEMENTS LATER
-
-        print("MAIN MENU")
-        print("1. Exchange Rate")
+        
+        print("\n")
+        print("MAIN MENU".center(30))
+        print("-" * 30)
+        # Displays the menu options for the user to choose from
+        print("1. View Exchange Rate")
         print("2. Convert Currency")
-        print("3. Supported Currencies")
+        print("3. Check Supported Currencies")
         print("4. Exit")
+        print("-" * 30)
     
     def get_user_choice(self) -> str:
         """
