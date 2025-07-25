@@ -338,35 +338,35 @@ class CurrencyExchangeApp:
         Will display the list of supported currencies.
         Fetches them from the API if not already cached.
         """
-    # Section heading
-    print("\n SUPPORTED CURRENCIES: ")
-    print("-" * 35)
+        # Section heading
+        print("\n SUPPORTED CURRENCIES: ")
+        print("-" * 35)
 
-    # If currencies haven't been fetched yet, fetch and cache them
-    if not self.supported_currencies:
-        if not self.fetch_supported_currencies():
-            print("Failed to fetch supported currencies. Please try again.")
-            return
+        # If currencies haven't been fetched yet, fetch and cache them
+        if not self.supported_currencies:
+            if not self.fetch_supported_currencies():
+                print("Failed to fetch supported currencies. Please try again.")
+                return
 
-    # If the currency is available, display them:
-    if self.supported_currencies:
-        print(f" Found {len(self.supported_currencies)} supported currencies:\n")
-        currencies = list(self.supported_currencies.keys())
-        currencies.sort()
+        # If the currency is available, display them:
+        if self.supported_currencies:
+            print(f" Found {len(self.supported_currencies)} supported currencies:\n")
+            currencies = list(self.supported_currencies.keys())
+            currencies.sort()
 
-        # Display currencies in rows of 4 to fit terminals
-        for i in range(0, len(currencies), 4):
-            row = currencies[i:i+4]
-            formatted_row = [
-                f"{curr:>3}" for curr in row
-            ]  # Right align currency codes
-            print("  ".join(formatted_row))
+            # Display currencies in rows of 4 to fit terminals
+            for i in range(0, len(currencies), 4):
+                row = currencies[i:i+4]
+                formatted_row = [
+                    f"{curr:>3}" for curr in row
+                ]  # Right align currency codes
+                print("  ".join(formatted_row))
 
-        # Shows total count and prints helpful instructions
-        print(f"\n Total: {len(currencies)} currencies available")
-        print(" Use these 3-letter codes for conversions and rates: ")
-    else:
-        print("No currency data available.")
+            # Shows total count and prints helpful instructions
+            print(f"\n Total: {len(currencies)} currencies available")
+            print(" Use these 3-letter codes for conversions and rates: ")
+        else:
+            print("No currency data available.")
 
     def ask_continue(self) -> bool:
         """
@@ -376,33 +376,32 @@ class CurrencyExchangeApp:
             bool: True if user wants to continue, False if not.
         """
         # Loop until a valid input is received
-    while True:
-        # Will print a separator for better UX
-        print("\n" + "─" * 50)
-        continue_choice = input("Would you like to perform another operation? (y/n): ").strip().lower()
+        while True:
+            # Will print a separator for better UX
+            print("\n" + "─" * 50)
+            continue_choice = input("Would you like to perform another operation? (y/n): ").strip().lower()
 
-        if continue_choice in ['y', 'yes']:
-            return True
+            if continue_choice in ['y', 'yes']:
+                return True
 
-        elif continue_choice in ['n', 'no']:
-            return False
+            elif continue_choice in ['n', 'no']:
+                return False
 
-        else:
-            print("❌ Please enter 'y' for yes or 'n' for no.")
+            else:
+                print("❌ Please enter 'y' for yes or 'n' for no.")
 
     def display_goodbye(self):
         """
         Display goodbye message when the user exits the application.
         Provides a friendly and professional sign-off.
         """
+        # Border line for visual separation
+        print("\n" + "=" * 78)
 
-    # Border line for visual separation
-    print("\n" + "=" * 78)
+        print(" Thank you for using Currency Exchange CLI!".center(78))
+        print(" Happy trading and safe travels!".center(78))
 
-    print(" Thank you for using Currency Exchange CLI!".center(78))
-    print(" Happy trading and safe travels!".center(78))
-
-    print("=" * 78)
+        print("=" * 78)
 
     def run(self):
         """
