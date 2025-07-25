@@ -130,13 +130,13 @@ This project was deployed using Code Institue's mock terminal for Heroku:
   - Create a new Heroku app
   - Set buildpacks to Python and NodeJS in that specific order
   - Link the Heroku app to the repository
-  - Click "Deploy" 
+  - Click **Deploy**
 
 ---
 
-## ✅ Testing
+## Testing
 
-### ✔️ Manual Testing
+### Manual Testing
 
 | Feature                    | Test Description                                      | Result  |
 |---------------------------|--------------------------------------------------------|---------|
@@ -148,7 +148,7 @@ This project was deployed using Code Institue's mock terminal for Heroku:
 | Menu Navigation           | Entered invalid choices to trigger validation         | Passed  |
 | CLI Layout                | Verified readability on 80x24 terminal                | Passed  |
 
-### 🧪 Validators Used
+### Validators Used
 - [PEP8 Online Validator](http://pep8online.com/)
 - `pylint` in VS Code
 - CI Python Essentials Linter Test Tool
@@ -159,6 +159,7 @@ This project was deployed using Code Institue's mock terminal for Heroku:
 
 - The Heroku-hosted app may have a short delay when waking from sleep (common on the free tier).
 - The API (Fawaz Ahmed's CDN) may temporarily lag due to high usage or CDN refresh intervals.
+- ⚠️ Heads-up: This CLI application is optimized for desktop terminal use and performs best in environments with standard terminal dimensions (80x24). While it can technically be run on mobile browsers, some users may experience input delays, slower animations, or minor formatting issues due to limitations in mobile terminal emulation
 
 ---
 
@@ -168,6 +169,11 @@ This project was deployed using Code Institue's mock terminal for Heroku:
 - Save session history of conversions
 - Enhance visuals with `colorama` or terminal tables
 - Add offline caching of currency data
+- **Add Graphical User Interface (GUI):** Convert the app into a GUI or web-based version using frameworks such as Flask or Django (with a REST API backend) for smoother cross-device compatibility.
+- **Responsive Web Terminal:** Implement a lightweight responsive terminal emulator for better mobile performance.
+- **Historical Exchange Rates:** Add a feature to view past exchange rates based on date selection.
+- **Currency Trends Dashboard:** Graph monthly or weekly currency trends using APIs like exchangerate.host or Fawaz API with charting libraries.
+- **Multi-Language Support:** Offer localization for global users.
 
 ---
 
