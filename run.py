@@ -11,23 +11,21 @@ from typing import Dict, List, Optional, Tuple
 
 class CurrencyExchangeApp:
     """Main application class for currency exchange operations."""
-    
     def __init__(self):
         """Initialize the application with API base URL."""
-        self.api_base = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1"
+        self.api_base = ("https://cdn.jsdelivr.net/npm/"
+                         "@fawazahmed0/currency-api@latest/v1")
         self.supported_currencies = {}
-    
-    # Simulates a real-time loading effect using dots   
+
+    # Simulates a real-time loading effect using dots
     def show_loading(self, message: str = "Loading", duration: float = 1.5):
         """
         Display a loading animation with dots.
-        
         Args:
             message (str): Message to display while loading.
             duration (float): Duration of loading animation in seconds.
         """
         print(f"\n{message}", end="")
-        
         # Loop runs 'duration * 2' times to print a dot every 0.5 seconds
         for _ in range(int(duration * 2)):
             print(".", end="", flush=True)
@@ -35,7 +33,7 @@ class CurrencyExchangeApp:
 
     def validate_currency_code(self, currency: str) -> bool:
         """
-        Validate currency code format (3 uppercase letters) eg: USD, EUR, GBP. 
+        Validate currency code format (3 uppercase letters) eg: USD, EUR, GBP.
 
         Args:
             currency (str): Currency code to validate
@@ -49,7 +47,7 @@ class CurrencyExchangeApp:
 
         # Regular expression checks that currency matches 3 uppercase letters
         return bool(re.match(r'^[A-Z]{3}$', currency.upper()))
-    
+
     def validate_amount(self, amount_str: str) -> Tuple[bool, float]:
         """
         Validates and converts amount string to float.
@@ -74,7 +72,7 @@ class CurrencyExchangeApp:
         except ValueError:
             # If conversion fails/non-numeric input return invalid.
             return False, 0.0
-        
+
     def fetch_supported_currencies(self) -> bool:
         """
         Fetch our supported currencies from the external API.
@@ -86,7 +84,7 @@ class CurrencyExchangeApp:
             # To display a simple loading animation for user experience
             self.show_loading("Fetching supported currencies")
 
-            # Make GET request to the API's /currencies.json 
+            # Make GET request to the API's /currencies.json
             response = requests.get(
                 f"{self.api_base}/currencies.json", timeout=10
             )
@@ -119,14 +117,15 @@ class CurrencyExchangeApp:
         except json.JSONDecodeError:
             print("Invalid format from API")
             return False
-        
-    def get_exchange_rate(self, from_currency: str, to_currency: str) -> Optional[float]:
+
+    def get_exchange_rate(self, from_currency: str,
+                          to_currency: str) -> Optional[float]:
         """
         Gets exchange rate between two currencies.
 
         Args:
-            from currency (str): Source/initial currency code (such as "USD")
-            to currency (str): Target/final currency code (e.g., "EUR")
+            from_currency (str): Source/initial currency code (such as "USD")
+            to_currency (str): Target/final currency code (e.g., "EUR")
 
         Returns:
             Exchange rate as a float or None if something fails
@@ -140,7 +139,7 @@ class CurrencyExchangeApp:
 
             # Make the GET request to fetch the currency data
             response = requests.get(url, timeout=10)
-            response.raise_for_status()  # Raises an error if the request failed (non-200 status)
+            response.raise_for_status()
 
             # Parse the JSON response
             data = response.json()
@@ -151,8 +150,6 @@ class CurrencyExchangeApp:
                 rates = data[from_currency.lower()]
 
                 # Return the specific rate for the final/to_currency
-                # IMPORTANT:
-                # I WILL NEED TO EDIT THE USER PRINT STATEMENTS LATER 
                 return rates.get(to_currency.lower())
             else:
                 print(f"❌ Currency {from_currency} invalid")
@@ -166,20 +163,21 @@ class CurrencyExchangeApp:
             print(" ❌ Cannot connect to the API.")
             return None
         except requests.exceptions.RequestException as e:
-            print(f"API request failed: {e}")
+            print(f"⚠️ API request failed: {e}")
             return None
         except json.JSONDecodeError:
-            print("Invalid format from API")
+            print("⛔️ Invalid format from API")
             return None
 
-    def convert_currency(self, amount: float, from_currency: str, to_currency: str) -> Optional[float]:
+    def convert_currency(self, amount: float, from_currency: str,
+                         to_currency: str) -> Optional[float]:
         """
         Convert entered amount from one currency to another.
 
         Args:
             amount (float): Amount to convert
             from_currency (str): Source/initial currency code
-            to curency (str): Target/final currency code
+            to_currency (str): Target/final currency code
 
         Returns:
             Converted amount or None if failed
@@ -191,21 +189,22 @@ class CurrencyExchangeApp:
         if rate is not None:
             return amount * rate
         return None
-    
-    def display_welcome(self):   
+
+    def display_welcome(self):
         """Display welcome message and application information for engaging
         user experience."""
-        
+
         print("=" * 78)
         print(" WELCOME TO MUMA'S CURRENCY EXCHANGE CLI 👋".center(78))
-        print("This app helps you check exchange rates and convert currencies in real time 🙂")
+        print("This app helps you check exchange rates and convert "
+              "currencies in real time 🙂")
         print("\n")
         print("Data provided by Fawaz Ahmed Currency API".center(78))
         print("=" * 78)
 
     def display_menu(self):
         """This will display the main menu options."""
-        
+
         print("\n")
         print("MAIN MENU".center(30))
         print("-" * 30)
@@ -215,50 +214,54 @@ class CurrencyExchangeApp:
         print("3. Check Supported Currencies")
         print("4. Exit")
         print("-" * 30)
-    
+
     def get_user_choice(self) -> str:
         """
         Get and validate user menu choice.
-        
+
         Returns:
             str: User's validated choice
         """
         valid_choices = ['1', '2', '3', '4']
         while True:
-            #  An infinite loop to keep asking until a valid input is given.
-            choice = input("Enter your choice (1-4): ").strip() # Strips whitespace
+            # An infinite loop to keep asking until a valid input is given.
+            choice = input("Enter your choice (1-4): ").strip()
             if choice in valid_choices:
                 return choice
             else:
-                print("❌ Invalid choice. Please enter a number between 1 and 4.")
-    
+                print("❌ Invalid choice. Please enter a number "
+                      "between 1 and 4.")
+
     def get_currency_input(self, prompt: str) -> str:
         """
         Get and validate currency code input from user.
 
         Args:
-            String prmpt: Prompt message for user
+            prompt (str): Prompt message for user
 
         Returns:
-            A message: Validated currency code in uppercase
+            str: Validated currency code in uppercase
         """
 
         while True:
             # Trims whitespace, ensures input is uppercase
             currency = input(prompt).strip().upper()
-            if self.validate_currency_code(currency):
-                return currency
-        else:
-            print("❌ Invalid currency code. Please enter a 3-letter code (e.g: USD, EUR).") 
-        # Check if we have currency list and validate against it
-        if self.supported_currencies and currency.lower() not in self.supported_currencies:
-            print(f"'{currency}' is not a supported currency.")
-            print("💡 Tip: Use option 3 to view supported currencies.")
+
+            if not self.validate_currency_code(currency):
+                print("❌ Invalid currency code. Please enter a 3-letter "
+                      "code (e.g: USD, EUR).")
+                continue
+            # Check if we have currency list and validate against it
+            if (self.supported_currencies and
+               currency.lower() not in self.supported_currencies):
+                print(f"'{currency}' is not a supported currency.")
+                print("💡 Tip: Use option 3 to view supported currencies.")
+                continue
 
             return currency
-    
+
     def get_amount_input(self) -> float:
-        """ 
+        """
         Get and validate amount input from user.
         Returns:
             float: Validated amount
@@ -266,13 +269,11 @@ class CurrencyExchangeApp:
         while True:
             amount_str = input("Enter amount to convert: ").strip()
             is_valid, amount = self.validate_amount(amount_str)
-            
             if not is_valid:
                 print("❌ Invalid amount. Please enter a positive number.")
                 continue
-                
             return amount
-        
+
     def handle_exchange_rate(self):
         """Handle the exchange rate viewing functionality."""
 
@@ -280,23 +281,28 @@ class CurrencyExchangeApp:
         print("📊 VIEW EXCHANGE RATE".center(30))
         print("-" * 30)
 
-        from_currency = self.get_currency_input("Enter source currency (e.g. USD): ")
-        to_currency = self.get_currency_input("Enter target currency (e.g. EUR): ")
+        from_currency = self.get_currency_input(
+            "Enter source currency (e.g. USD): ")
+        target_prompt = "Enter target currency (e.g. EUR): "
+        to_currency = self.get_currency_input(target_prompt)
 
         # If the user selects the same currency, we can skip the API call
         if from_currency == to_currency:
             print("Same currency selected. Exchange rate is 1.0000")
             return
+
         rate = self.get_exchange_rate(from_currency, to_currency)
         if rate is not None:
             print(f"\n ✅ SUCCESS!")
-            print(f" 📊 Exchange Rate: 1 {from_currency} = {rate:.4f} {to_currency}")
+            print(f" 📊 Exchange Rate: 1 {from_currency} = "
+                  f"{rate:.4f} {to_currency}")
 
-            # Shows a timestamp for when the data was fetched for user reference
-            print(f"Data fetched on: {time.strftime('%Y-%m-%d %H:%M:%S')}") 
+            # Shows a timestamp for when the data was fetched
+            print(f"Data fetched on: "
+                  f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
             print("\n ❌ Failed to fetch exchange rate. Please try again.")
-        
+
     def handle_currency_conversion(self):
         """
         Handles the currency conversion functionality.
@@ -309,8 +315,10 @@ class CurrencyExchangeApp:
         print("-" * 30)
 
         # Ask the user for the source and target currencies using validation
-        from_currency = self.get_currency_input("Enter source currency (e.g. USD): ")
-        to_currency = self.get_currency_input("Enter target currency (e.g. EUR): ")
+        from_currency = self.get_currency_input(
+            "Enter source currency (e.g. USD): ")
+        to_currency = self.get_currency_input(
+            "Enter target currency (e.g. EUR): ")
 
         # Asks for the amount to convert and validate it
         amount = self.get_amount_input()
@@ -318,18 +326,23 @@ class CurrencyExchangeApp:
         # If same currency for both, no conversion needed
         if from_currency == to_currency:
             print(f"\n 💡 Same currency selected.")
-            print(f" ✅ {amount:.2f} {from_currency} = {amount:.2f} {to_currency}")
+            print(f" ✅ {amount:.2f} {from_currency} = "
+                  f"{amount:.2f} {to_currency}")
             return
 
-        converted_amount = self.convert_currency(amount, from_currency, to_currency)
-        
+        converted_amount = self.convert_currency(
+            amount, from_currency, to_currency)
+
         # Displays the result if the conversion is successful:
         if converted_amount is not None:
             print(f"\n ✅ CONVERSION SUCCESSFUL!")
-            print(f"💰 {amount:.2f} {from_currency} = {converted_amount:.2f} {to_currency}")
-            print(f" Rate: 1 {from_currency} = {converted_amount / amount:.4f} {to_currency}")
+            print(f"💰 {amount:.2f} {from_currency} = "
+                  f"{converted_amount:.2f} {to_currency}")
+            print(f" Rate: 1 {from_currency} = "
+                  f"{converted_amount / amount:.4f} {to_currency}")
             # Date & Time:
-            print(f"Converted on: {time.strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"Converted on: "
+                  f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
             # If API or rate fetching fails, notify the user
             print("\n ⚠️ Failed to convert currency. Please try again.")
@@ -347,26 +360,27 @@ class CurrencyExchangeApp:
         # If currencies haven't been fetched yet, fetch and cache them
         if not self.supported_currencies:
             if not self.fetch_supported_currencies():
-                print("❌ Failed to fetch supported currencies. Please try again.")
+                print("❌ Failed to fetch supported currencies.")
+                print("Please try again.")
                 return
 
         # If the currency is available, display them:
         if self.supported_currencies:
-            print(f" ✅ Found {len(self.supported_currencies)} supported currencies:\n")
+            print(f" ✅ Found {len(self.supported_currencies)} "
+                  "supported currencies:")
+            print()
             currencies = list(self.supported_currencies.keys())
             currencies.sort()
 
-             # Shows total count and prints helpful instructions
+            # Shows total count and prints helpful instructions
             print(f"\n Total: {len(currencies)} currencies available")
-            print(" 💡 Use any of these these codes for conversions and rates: ")
+            print(" 💡 Use any of these codes for conversions and rates: ")
             print("\n")
 
             # Display currencies in rows of 4 to fit terminals
             for i in range(0, len(currencies), 4):
                 row = currencies[i:i+4]
-                formatted_row = [
-                    f"{curr:>3}" for curr in row
-                ]  # Right align currency codes
+                formatted_row = [f"{curr:>3}" for curr in row]
                 print("  ".join(formatted_row))
         else:
             print(" ❌ No currency data available.")
@@ -382,14 +396,14 @@ class CurrencyExchangeApp:
         while True:
             # Will print a separator for better UX
             print("\n" + "─" * 50)
-            continue_choice = input("Would you like to perform another operation? (y/n): ").strip().lower()
+            continue_choice = input(
+                "Would you like to perform another operation? (y/n): "
+            ).strip().lower()
 
             if continue_choice in ['y', 'yes']:
                 return True
-
             elif continue_choice in ['n', 'no']:
                 return False
-
             else:
                 print("❌ Please enter 'y' for yes or 'n' for no.")
 
@@ -401,7 +415,8 @@ class CurrencyExchangeApp:
         # Border line for visual separation
         print("\n" + "=" * 78)
 
-        print(" Thank you for using Muma's Currency Exchange CLI! 👋 ".center(78))
+        print(" Thank you for using Muma's Currency Exchange CLI!".center(78))
+        print(" 👋 ".center(78))
         print("\n")
         print(" I truly hope you enjoyed using it! 🙂".center(78))
         print("\n")
@@ -435,7 +450,7 @@ class CurrencyExchangeApp:
                 elif choice == '3':
                     self.handle_supported_currencies()
                 elif choice == '4':
-                    break  
+                    break
 
                 # Ask if the user wants to continue
                 if not self.ask_continue():
@@ -445,7 +460,7 @@ class CurrencyExchangeApp:
             self.display_goodbye()
 
         except KeyboardInterrupt:
-            # Just in case the user interrupts the app 
+            # Just in case the user interrupts the app
             print("\n\n Application interrupted by user.")
             print("Goodbye!")
             sys.exit(0)
@@ -468,8 +483,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
