@@ -390,5 +390,20 @@ class CurrencyExchangeApp:
         else:
             print("❌ Please enter 'y' for yes or 'n' for no.")
 
+    def display_goodbye(self):
+        """
+        Display goodbye message when the user exits the application.
+        Provides a friendly and professional sign-off.
+        """
+
+    # Border line for visual separation
+    print("\n" + "=" * 78)
+
+    print(" Thank you for using Currency Exchange CLI!".center(78))
+    print(" Happy trading and safe travels!".center(78))
+
+    print("=" * 78)
+
+
 
 
