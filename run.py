@@ -452,5 +452,19 @@ class CurrencyExchangeApp:
             sys.exit(1)
 
 
+def main():
+    """
+    Entry point for the CLI application.
+    Initializes and runs the CurrencyExchangeApp.
+    """
+    app = CurrencyExchangeApp()
+    app.run()
+
+
+if __name__ == "__main__":
+    main()
+
+
+
 
 
