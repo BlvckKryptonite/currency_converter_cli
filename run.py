@@ -275,11 +275,13 @@ class CurrencyExchangeApp:
         
     def handle_exchange_rate(self):
         """Handle the exchange rate viewing functionality."""
-        print("\n 📊 VIEW EXCHANGE RATE".center(30))
+
+        print("\n")
+        print("📊 VIEW EXCHANGE RATE".center(30))
         print("-" * 30)
 
-        from_currency = self.get_currency_input("Enter source currency: ")
-        to_currency = self.get_currency_input("Enter target currency: ")
+        from_currency = self.get_currency_input("Enter source currency (e.g. USD): ")
+        to_currency = self.get_currency_input("Enter target currency (e.g. EUR): ")
 
         # If the user selects the same currency, we can skip the API call
         if from_currency == to_currency:
@@ -289,8 +291,8 @@ class CurrencyExchangeApp:
         if rate is not None:
             print(f"\n ✅ SUCCESS!")
             print(f" 📊 Exchange Rate: 1 {from_currency} = {rate:.4f} {to_currency}")
-            # Shows a timestamp for when the data was fetched for user
-            # reference. This helps build user trust.
+
+            # Shows a timestamp for when the data was fetched for user reference
             print(f"Data fetched on: {time.strftime('%Y-%m-%d %H:%M:%S')}") 
         else:
             print("\n ❌ Failed to fetch exchange rate. Please try again.")
@@ -302,8 +304,9 @@ class CurrencyExchangeApp:
         then performs the conversion and displays the result afterwards.
         """
         # Section Header
-        print("\n 🔄 CONVERT CURRENCY".center(25))
-        print("-" * 25)
+        print("\n")
+        print("🔄 CONVERT CURRENCY".center(30))
+        print("-" * 30)
 
         # Ask the user for the source and target currencies using validation
         from_currency = self.get_currency_input("Enter source currency (e.g. USD): ")
@@ -337,7 +340,8 @@ class CurrencyExchangeApp:
         Fetches them from the API if not already cached.
         """
         # Section heading
-        print("\n 📜 SUPPORTED CURRENCIES: ")
+        print("\n")
+        print(" 📜 SUPPORTED CURRENCIES: ".center(35))
         print("-" * 35)
 
         # If currencies haven't been fetched yet, fetch and cache them
@@ -352,6 +356,11 @@ class CurrencyExchangeApp:
             currencies = list(self.supported_currencies.keys())
             currencies.sort()
 
+             # Shows total count and prints helpful instructions
+            print(f"\n Total: {len(currencies)} currencies available")
+            print(" 💡 Use any of these these codes for conversions and rates: ")
+            print("\n")
+
             # Display currencies in rows of 4 to fit terminals
             for i in range(0, len(currencies), 4):
                 row = currencies[i:i+4]
@@ -359,10 +368,6 @@ class CurrencyExchangeApp:
                     f"{curr:>3}" for curr in row
                 ]  # Right align currency codes
                 print("  ".join(formatted_row))
-
-            # Shows total count and prints helpful instructions
-            print(f"\n 🟰 Total: {len(currencies)} currencies available")
-            print(" 💡 Use these 3-letter codes for conversions and rates: ")
         else:
             print(" ❌ No currency data available.")
 
@@ -398,7 +403,7 @@ class CurrencyExchangeApp:
 
         print(" Thank you for using Muma's Currency Exchange CLI! 👋 ".center(78))
         print("\n")
-        print(" I truly hope you enjoyd using it! 🙂".center(78))
+        print(" I truly hope you enjoyed using it! 🙂".center(78))
         print("\n")
         print("Have an absolutely wonderful day! 🌟".center(78))
 
