@@ -195,13 +195,13 @@ class CurrencyExchangeApp:
     def display_welcome(self):   
         """Display welcome message and application information for engaging
         user experience."""
-        # IMPORTANT: 
-        # I WILL NEED TO EDIT & STYLIZE THE PRINT STATEMENTS LATER
-
-        print("MUMA's CURRENCY EXCHANGE CLI APPLICATION")
-        print("Welcome!")
-        print("Convert currencies.")  # Briefly describe what it does
-        print("API by..")  # API INFORMATION
+        
+        print("=" * 78)
+        print(" WELCOME TO MUMA's CURRENCY EXCHANGE CLI 👋".center(78))
+        print("This app helps you check exchange rates and convert currencies in real time 🙂")
+        print("\n")
+        print("Data provided by Fawaz Ahmed Currency API".center(78))
+        print("=" * 78)
 
     def display_menu(self):
         """This will display the main menu options."""
