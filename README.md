@@ -1,8 +1,10 @@
-# 💱 Currency Exchange CLI Application
+# Currency Exchange CLI Application
 
 Welcome to the Currency Exchange CLI — a Python-based terminal application that enables users to check exchange rates, convert currencies, and explore supported currency codes using real-time data via the Fawaz Ahmed Currency API.
 
-![App Screenshot](docs/demo-screenshot.png) 
+[Here is the live version of my project 🔗](https://currency-converter-cli-fad75cd3b79c.herokuapp.com/)
+
+![App Screenshot](assets/images/cli_mockup.png) 
 
 ---
 
@@ -60,7 +62,7 @@ This project aligns with my long-term fintech goals and showcases clean, maintai
 
 To better understand the app’s logic and UX journey, see the flowchart diagram below:
 
-![Currency Exchange Flowchart](docs/currency_exchange_flowchart.png)
+![Currency Exchange Flowchart](assets/images/currency_con_flowchart.png)
 
 
 ---
@@ -92,7 +94,6 @@ To better understand the app’s logic and UX journey, see the flowchart diagram
 ### 1. Clone the Repository
 
 git clone https://github.com/BlvckKryptonite/currency_converter_cli.git
-cd currency_converter_cli
 
 ### 2. Create a Virtual Environment
 
@@ -115,9 +116,6 @@ cd currency_converter_cli
 ##  Deployment
 
 The application is deployed using [Heroku](https://heroku.com), which provides a cloud platform with terminal support for Python apps.
-
-### Live Site
-[Currency Exchange CLI on Heroku 🔗](https://currency-converter-cli-fad75cd3b79c.herokuapp.com/)
 
 
 ### Deployment Steps
@@ -149,17 +147,18 @@ This project was deployed using Code Institue's mock terminal for Heroku:
 | CLI Layout                | Verified readability on 80x24 terminal                | Passed  |
 
 ### Validators Used
-- [PEP8 Online Validator](http://pep8online.com/)
-- `pylint` in VS Code
-- CI Python Essentials Linter Test Tool
+
+- [CI's PEP8 Python Validator](https://pep8ci.herokuapp.com/)
+
+- ![Linter Validation C´Screenshot](assets/images/linter_validation_screenshot.png)
 
 ---
 
-## Issues Worth Noting
+## Noteworth Issues
 
 - The Heroku-hosted app may have a short delay when waking from sleep (common on the free tier).
 - The API (Fawaz Ahmed's CDN) may temporarily lag due to high usage or CDN refresh intervals.
-- ⚠️ Heads-up: This CLI application is optimized for desktop terminal use and performs best in environments with standard terminal dimensions (80x24). While it can technically be run on mobile browsers, some users may experience input delays, slower animations, or minor formatting issues due to limitations in mobile terminal emulation
+- **Heads-up ⚠️**: This CLI application is optimized for desktop terminal use and performs best in environments with standard terminal dimensions (80x24). While it can technically be run on mobile browsers, some users may experience input delays, slower animations, or minor formatting issues due to limitations in mobile terminal emulation
 
 ---
 
@@ -181,6 +180,3 @@ This project was deployed using Code Institue's mock terminal for Heroku:
 
 - **API Provider**: [Fawaz Ahmed Currency API](https://github.com/fawazahmed0/currency-api)
 - **Template**: [Code Institute Python Essentials Template](https://github.com/Code-Institute-Org/python-essentials-template)
-
-
-

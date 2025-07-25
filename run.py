@@ -197,7 +197,7 @@ class CurrencyExchangeApp:
         print("=" * 60)
         print(" WELCOME TO MUMA'S CURRENCY EXCHANGE CLI 👋".center(60))
         print("\n")
-        print("This app helps you check exchange rates and convert "
+        print(" This app helps you check exchange rates and convert "
               "currencies ".center(60))
         print(" in real time 🙂".center(60))
         print("\n")
