@@ -103,12 +103,12 @@ class CurrencyExchangeApp:
                 self.supported_currencies = data
                 return True
             else:
-                print("No currencies data")
+                print(" ❌ No currency data available ❌")
                 return False
 
         # To handle network-related and API data decoding errors
         except requests.exceptions.Timeout:
-            print("Request timed out.")
+            print("Request timed out ⏱️")
             return False
         except requests.exceptions.ConnectionError:
             print("Cannot connect to the API.")
@@ -155,15 +155,15 @@ class CurrencyExchangeApp:
                 # I WILL NEED TO EDIT THE USER PRINT STATEMENTS LATER 
                 return rates.get(to_currency.lower())
             else:
-                print(f"Currency {from_currency} invalid")
+                print(f"❌ Currency {from_currency} invalid")
                 return None
 
         # Handle different error scenarios as well:
         except requests.exceptions.Timeout:
-            print("Request timed out.")
+            print("⏱️ Request timed out.")
             return None
         except requests.exceptions.ConnectionError:
-            print("Cannot connect to the API.")
+            print(" ❌ Cannot connect to the API.")
             return None
         except requests.exceptions.RequestException as e:
             print(f"API request failed: {e}")
@@ -197,7 +197,7 @@ class CurrencyExchangeApp:
         user experience."""
         
         print("=" * 78)
-        print(" WELCOME TO MUMA's CURRENCY EXCHANGE CLI 👋".center(78))
+        print(" WELCOME TO MUMA'S CURRENCY EXCHANGE CLI 👋".center(78))
         print("This app helps you check exchange rates and convert currencies in real time 🙂")
         print("\n")
         print("Data provided by Fawaz Ahmed Currency API".center(78))
@@ -242,8 +242,7 @@ class CurrencyExchangeApp:
         Returns:
             A message: Validated currency code in uppercase
         """
-        # IMPORTANT:
-        # MIGHT NEED TO EDIT & STYLIZE THE PRINT STATEMENTS LATER
+
         while True:
             # Trims whitespace, ensures input is uppercase
             currency = input(prompt).strip().upper()
@@ -276,7 +275,7 @@ class CurrencyExchangeApp:
         
     def handle_exchange_rate(self):
         """Handle the exchange rate viewing functionality."""
-        print("\n VIEW EXCHANGE RATE")
+        print("\n 📊 VIEW EXCHANGE RATE".center(30))
         print("-" * 30)
 
         from_currency = self.get_currency_input("Enter source currency: ")
@@ -303,7 +302,7 @@ class CurrencyExchangeApp:
         then performs the conversion and displays the result afterwards.
         """
         # Section Header
-        print("\n 🔄 CONVERT CURRENCY")
+        print("\n 🔄 CONVERT CURRENCY".center(25))
         print("-" * 25)
 
         # Ask the user for the source and target currencies using validation
@@ -320,10 +319,7 @@ class CurrencyExchangeApp:
             return
 
         converted_amount = self.convert_currency(amount, from_currency, to_currency)
-        # IMPORTANT:
-        # I MAY COME & STYLIZE THE PRINT STATEMENTS LATER
-        # ADD SOME EMOJIS FOR BETTER UX Brooo 👍🏾
-
+        
         # Displays the result if the conversion is successful:
         if converted_amount is not None:
             print(f"\n ✅ CONVERSION SUCCESSFUL!")
@@ -333,7 +329,7 @@ class CurrencyExchangeApp:
             print(f"Converted on: {time.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
             # If API or rate fetching fails, notify the user
-            print("\n Failed to convert currency. Please try again.")
+            print("\n ⚠️ Failed to convert currency. Please try again.")
 
     def handle_supported_currencies(self):
         """
@@ -400,8 +396,10 @@ class CurrencyExchangeApp:
         # Border line for visual separation
         print("\n" + "=" * 78)
 
-        print(" 👋 Thank you for using Muma's Currency Exchange CLI!".center(78))
+        print(" Thank you for using Muma's Currency Exchange CLI! 👋 ".center(78))
+        print("\n")
         print(" I truly hope you enjoyd using it! 🙂".center(78))
+        print("\n")
         print("Have an absolutely wonderful day! 🌟".center(78))
 
         print("=" * 78)
