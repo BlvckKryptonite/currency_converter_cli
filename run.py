@@ -404,6 +404,53 @@ class CurrencyExchangeApp:
 
     print("=" * 78)
 
+    def run(self):
+        """
+        Runs the main loop of the application.
+        """
+        try:
+            # Calls welcome message with app info
+            self.display_welcome()
+
+            print(" Initializing application...")
+            self.fetch_supported_currencies()
+
+            # Main loop
+            while True:
+                # Show menu options
+                self.display_menu()
+
+                # Validate user input (1-4)
+                choice = self.get_user_choice()
+
+                if choice == '1':
+                    self.handle_exchange_rate()
+                elif choice == '2':
+                    self.handle_currency_conversion()
+                elif choice == '3':
+                    self.handle_supported_currencies()
+                elif choice == '4':
+                    break  
+
+                # Ask if the user wants to continue
+                if not self.ask_continue():
+                    break
+
+            # Display final goodbye message
+            self.display_goodbye()
+
+        except KeyboardInterrupt:
+            # Just in case the user interrupts the app 
+            print("\n\n Application interrupted by user.")
+            print("Goodbye!")
+            sys.exit(0)
+
+        except Exception as e:
+            # For any any unexpected exceptions
+            print(f"\n Unexpected error occurred: {e}")
+            print(" Please restart the application.")
+            sys.exit(1)
+
 
 
 
