@@ -1,4 +1,5 @@
 import requests
+import json
 import time
 import sys
 import re
@@ -6,6 +7,8 @@ from typing import Optional, Tuple
 from colorama import init, Fore, Style
 from pyfiglet import Figlet
 init(autoreset=True)
+
+
 class CurrencyExchangeApp:
     """Main application class for currency exchange operations."""
     def __init__(self):
@@ -256,8 +259,9 @@ class CurrencyExchangeApp:
 
             if not self.validate_currency_code(currency):
                 # Variable to comply with PEP8 line length limit
-                inv_code = "❌ Invalid currency code. Please enter a 3-letter "
+                inv_code = ("❌ Invalid currency code. Please enter a 3-letter "
                 "code (e.g: USD, EUR)."
+                )
                 print(Fore.RED + inv_code)
                 continue
             # Check if we have currency list and validate against it
@@ -307,7 +311,7 @@ class CurrencyExchangeApp:
 
         rate = self.get_exchange_rate(from_currency, to_currency)
         if rate is not None:
-            print(Fore.GREEN + f"\n ✅ SUCCESS!")
+            print(Fore.GREEN + "\n ✅ SUCCESS!")
             print(f" 📊 Exchange Rate: 1 {from_currency} = "
                   f"{rate:.4f} {to_currency}")
 
@@ -341,7 +345,7 @@ class CurrencyExchangeApp:
 
         # If same currency for both, no conversion needed
         if from_currency == to_currency:
-            print(Fore.YELLOW + f"\n 💡 Same currency selected.")
+            print(Fore.YELLOW + "\n 💡 Same currency selected.")
             print(f" ✅ {amount:.2f} {from_currency} = "
                   f"{amount:.2f} {to_currency}")
             return
@@ -351,7 +355,7 @@ class CurrencyExchangeApp:
 
         # Displays the result if the conversion is successful:
         if converted_amount is not None:
-            print(Fore.GREEN + f"\n ✅ CONVERSION SUCCESSFUL!")
+            print(Fore.GREEN + "\n ✅ CONVERSION SUCCESSFUL!")
             print(f"💰 {amount:.2f} {from_currency} = "
                   f"{converted_amount:.2f} {to_currency}")
             print(f" Rate: 1 {from_currency} = "
@@ -361,8 +365,8 @@ class CurrencyExchangeApp:
                   f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
             # If API or rate fetching fails, notify the user
-            error msg = "\n ⚠️ Failed to convert currency. Please try again."
-            print(Fore.RED + error msg)
+            error_msg = "\n ⚠️ Failed to convert currency. Please try again."
+            print(Fore.RED + error_msg)
 
     def handle_supported_currencies(self):
         """
