@@ -196,19 +196,23 @@ class CurrencyExchangeApp:
     def display_welcome(self):
         """Display welcome message and application information for engaging
         user experience."""
-        
         # Creates a Figlet object using the 'small' font style for ASCII art
         figlet = Figlet(font='small')
         print(Fore.YELLOW + Style.BRIGHT + "=" * 60)
         ascii_title = figlet.renderText("HELLO!".center(35))
         # Prints the ASCII art title in bright yellow color
         print(Fore.YELLOW + Style.BRIGHT + ascii_title)
-        print(Fore.YELLOW + "Welcome to Muma's Currency Exchange CLI 👋".center(60))
+        # Created welcome msg var to comply with PEP8 line length limit
+        welcome_msg = "Welcome to Muma's Currency Exchange CLI 👋".center(60)
+        print(Fore.YELLOW + welcome_msg)
         print()
-        print(Fore.YELLOW + " This app helps you check exchange rates and ".center(60))
-        print(Fore.YELLOW + " convert currencies in real time 🙂".center(60))
+        msg2 = " This app helps you check exchange rates and ".center(60)
+        print(Fore.YELLOW + msg2)
+        msg3 = " convert currencies in real time 🙂".center(60)
+        print(Fore.YELLOW + msg3)
         print()
-        print(Fore.YELLOW + Style.BRIGHT + " Data provided by Fawaz Ahmed Currency API".center(60))
+        api_message = " Data provided by Fawaz Ahmed Currency API".center(60)
+        print(Fore.YELLOW + Style.BRIGHT + api_message)
         print(Fore.YELLOW + Style.BRIGHT + "=" * 60)
 
     def display_menu(self):
@@ -257,14 +261,17 @@ class CurrencyExchangeApp:
             currency = input(prompt).strip().upper()
 
             if not self.validate_currency_code(currency):
-                print(Fore.RED + "❌ Invalid currency code. Please enter a 3-letter "
-                      "code (e.g: USD, EUR).")
+                # Variable to comply with PEP8 line length limit
+                inv_code = "❌ Invalid currency code. Please enter a 3-letter "
+                "code (e.g: USD, EUR)."
+                print(Fore.RED + inv_code)
                 continue
             # Check if we have currency list and validate against it
             if (self.supported_currencies and
                currency.lower() not in self.supported_currencies):
                 print(Fore.RED + f"'{currency}' is not a supported currency.")
-                print(Fore.YELLOW + "💡 Tip: Use option 3 to view supported currencies.")
+                tip = "💡 Tip: Use option 3 to view supported currencies."
+                print(Fore.YELLOW + tip)
                 continue
 
             return currency
@@ -279,7 +286,9 @@ class CurrencyExchangeApp:
             amount_str = input("Enter amount to convert: ").strip()
             is_valid, amount = self.validate_amount(amount_str)
             if not is_valid:
-                print(Fore.RED + "❌ Invalid amount. Please enter a positive number.")
+                # Variable to comply with PEP8 line length limit
+                inv_amt = ("❌ Invalid amount. Please enter a positive number.")
+                print(Fore.RED + inv_amt)
                 continue
             return amount
 
@@ -297,7 +306,9 @@ class CurrencyExchangeApp:
 
         # If the user selects the same currency, we can skip the API call
         if from_currency == to_currency:
-            print(Fore.YELLOW + "Same currency selected. Exchange rate is 1.0000")
+            # Variable to comply with PEP8 line length limit (E501)
+            same_currency = "Same currency selected. Exchange rate is 1.0000"
+            print(Fore.YELLOW + same_currency)
             return
 
         rate = self.get_exchange_rate(from_currency, to_currency)
@@ -310,7 +321,9 @@ class CurrencyExchangeApp:
             print(f"Data fetched on: "
                   f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
-            print(Fore.RED + "\n ❌ Failed to fetch exchange rate. Please try again.")
+            print(Fore.RED + (
+             "\n ❌ Failed to fetch exchange rate. Please try again."
+             ))
 
     def handle_currency_conversion(self):
         """
@@ -354,7 +367,8 @@ class CurrencyExchangeApp:
                   f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
             # If API or rate fetching fails, notify the user
-            print(Fore.RED + "\n ⚠️ Failed to convert currency. Please try again.")
+            error msg = "\n ⚠️ Failed to convert currency. Please try again."
+            print(Fore.RED + error msg)
 
     def handle_supported_currencies(self):
         """
@@ -391,7 +405,8 @@ class CurrencyExchangeApp:
                 formatted_row = [f"{curr:>3}" for curr in row]
                 print("  ".join(formatted_row))
             print("\n")
-            print(Fore.YELLOW + "💡 Use any of the codes above for conversions and rates 💡")
+            hint = "💡 Use any of the codes above for conversions and rates 💡"
+            print(Fore.YELLOW + hint)
         else:
             print(Fore.RED + " ❌ No currency data available.")
 
@@ -406,9 +421,12 @@ class CurrencyExchangeApp:
         while True:
             # Will print a separator for better UX
             print("\n" + "─" * 50)
-            continue_choice = input(
-                Fore.YELLOW + "Would you like to perform another operation? (y/n): "
-            ).strip().lower()
+            # Prompt moved to variable to comply with PEP8 line length rules
+            continue_prompt = (
+                Fore.YELLOW
+                + "Would you like to perform another operation? (y/n): "
+                )
+            continue_choice = input(continue_prompt).strip().lower()
 
             if continue_choice in ['y', 'yes']:
                 return True
@@ -424,8 +442,9 @@ class CurrencyExchangeApp:
         """
         # Border line for visual separation
         print(Fore.YELLOW + "\n" + "=" * 60)
-
-        print(Fore.YELLOW + " Thank you for using Muma's Currency Exchange CLI!".center(60))
+        # Variable to comply with PEP8 line length rules
+        bye = " Thank you for using Muma's Currency Exchange CLI!".center(60)
+        print(Fore.YELLOW + bye)
         print("\n")
         print(Fore.YELLOW + " I truly hope you enjoyed using it! 🙂".center(60))
         print("\n")
