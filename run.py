@@ -104,21 +104,21 @@ class CurrencyExchangeApp:
                 self.supported_currencies = data
                 return True
             else:
-                print(" ❌ No currency data available ❌")
+                print(Fore.RED + " ❌ No currency data available ❌")
                 return False
 
         # To handle network-related and API data decoding errors
         except requests.exceptions.Timeout:
-            print("Request timed out ⏱️")
+            print(Fore.RED + "Request timed out ⏱️")
             return False
         except requests.exceptions.ConnectionError:
-            print("Cannot connect to the API.")
+            print(Fore.RED + "Cannot connect to the API.")
             return False
         except requests.exceptions.RequestException as e:
-            print(f"API request failed: {e}")
+            print(Fore.RED + f"API request failed: {e}")
             return False
         except json.JSONDecodeError:
-            print("Invalid format from API")
+            print(Fore.RED + "Invalid format from API")
             return False
 
     def get_exchange_rate(self, from_currency: str,
@@ -155,21 +155,21 @@ class CurrencyExchangeApp:
                 # Return the specific rate for the final/to_currency
                 return rates.get(to_currency.lower())
             else:
-                print(f"❌ Currency {from_currency} invalid")
+                print(Fore.RED + + f"❌ Currency {from_currency} invalid")
                 return None
 
         # Handle different error scenarios as well:
         except requests.exceptions.Timeout:
-            print("⏱️ Request timed out.")
+            print(Fore.RED + "⏱️ Request timed out.")
             return None
         except requests.exceptions.ConnectionError:
-            print(" ❌ Cannot connect to the API.")
+            print(Fore.RED + " ❌ Cannot connect to the API.")
             return None
         except requests.exceptions.RequestException as e:
-            print(f"⚠️ API request failed: {e}")
+            print(Fore.RED + f"⚠️ API request failed: {e}")
             return None
         except json.JSONDecodeError:
-            print("⛔️ Invalid format from API")
+            print(Fore.RED + "⛔️ Invalid format from API")
             return None
 
     def convert_currency(self, amount: float, from_currency: str,
@@ -197,7 +197,7 @@ class CurrencyExchangeApp:
         """Display welcome message and application information for engaging
         user experience."""
         
-        # Creates a Figlet object using the 'slant' font style for ASCII art
+        # Creates a Figlet object using the 'small' font style for ASCII art
         figlet = Figlet(font='small')
         print(Fore.YELLOW + Style.BRIGHT + "=" * 60)
         ascii_title = figlet.renderText("HELLO!".center(35))
@@ -238,7 +238,7 @@ class CurrencyExchangeApp:
             if choice in valid_choices:
                 return choice
             else:
-                print("❌ Invalid choice. Please enter a number "
+                print(Fore.RED + "❌ Invalid choice. Please enter a number "
                       "between 1 and 4.")
 
     def get_currency_input(self, prompt: str) -> str:
@@ -257,14 +257,14 @@ class CurrencyExchangeApp:
             currency = input(prompt).strip().upper()
 
             if not self.validate_currency_code(currency):
-                print("❌ Invalid currency code. Please enter a 3-letter "
+                print(Fore.RED + "❌ Invalid currency code. Please enter a 3-letter "
                       "code (e.g: USD, EUR).")
                 continue
             # Check if we have currency list and validate against it
             if (self.supported_currencies and
                currency.lower() not in self.supported_currencies):
-                print(f"'{currency}' is not a supported currency.")
-                print("💡 Tip: Use option 3 to view supported currencies.")
+                print(Fore.RED + f"'{currency}' is not a supported currency.")
+                print(Fore.YELLOW + "💡 Tip: Use option 3 to view supported currencies.")
                 continue
 
             return currency
@@ -279,7 +279,7 @@ class CurrencyExchangeApp:
             amount_str = input("Enter amount to convert: ").strip()
             is_valid, amount = self.validate_amount(amount_str)
             if not is_valid:
-                print("❌ Invalid amount. Please enter a positive number.")
+                print(Fore.RED + "❌ Invalid amount. Please enter a positive number.")
                 continue
             return amount
 
@@ -297,7 +297,7 @@ class CurrencyExchangeApp:
 
         # If the user selects the same currency, we can skip the API call
         if from_currency == to_currency:
-            print("Same currency selected. Exchange rate is 1.0000")
+            print(Fore.YELLOW + "Same currency selected. Exchange rate is 1.0000")
             return
 
         rate = self.get_exchange_rate(from_currency, to_currency)
@@ -310,7 +310,7 @@ class CurrencyExchangeApp:
             print(f"Data fetched on: "
                   f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
-            print("\n ❌ Failed to fetch exchange rate. Please try again.")
+            print(Fore.RED + "\n ❌ Failed to fetch exchange rate. Please try again.")
 
     def handle_currency_conversion(self):
         """
@@ -334,7 +334,7 @@ class CurrencyExchangeApp:
 
         # If same currency for both, no conversion needed
         if from_currency == to_currency:
-            print(f"\n 💡 Same currency selected.")
+            print(Fore.YELLOW + f"\n 💡 Same currency selected.")
             print(f" ✅ {amount:.2f} {from_currency} = "
                   f"{amount:.2f} {to_currency}")
             return
@@ -344,7 +344,7 @@ class CurrencyExchangeApp:
 
         # Displays the result if the conversion is successful:
         if converted_amount is not None:
-            print(f"\n ✅ CONVERSION SUCCESSFUL!")
+            print(Fore.GREEN + f"\n ✅ CONVERSION SUCCESSFUL!")
             print(f"💰 {amount:.2f} {from_currency} = "
                   f"{converted_amount:.2f} {to_currency}")
             print(f" Rate: 1 {from_currency} = "
@@ -354,7 +354,7 @@ class CurrencyExchangeApp:
                   f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
             # If API or rate fetching fails, notify the user
-            print("\n ⚠️ Failed to convert currency. Please try again.")
+            print(Fore.RED + "\n ⚠️ Failed to convert currency. Please try again.")
 
     def handle_supported_currencies(self):
         """
@@ -369,20 +369,20 @@ class CurrencyExchangeApp:
         # If currencies haven't been fetched yet, fetch and cache them
         if not self.supported_currencies:
             if not self.fetch_supported_currencies():
-                print("❌ Failed to fetch supported currencies.")
-                print("Please try again.")
+                print(Fore.RED + "❌ Failed to fetch supported currencies.")
+                print(Fore.YELLOW + "Please try again.")
                 return
 
         # If the currency is available, display them:
         if self.supported_currencies:
-            print(f" ✅ Found {len(self.supported_currencies)} "
+            print(Fore.GREEN + f" ✅ Found {len(self.supported_currencies)} "
                   "supported currencies:")
             print()
             currencies = list(self.supported_currencies.keys())
             currencies.sort()
 
             # Shows total count and prints helpful instructions
-            print(f"\n Total: {len(currencies)} currencies available")
+            print(f"\n All {len(currencies)} currencies available:")
             print("\n")
 
             # Display currencies in rows of 4 to fit terminals
@@ -391,9 +391,9 @@ class CurrencyExchangeApp:
                 formatted_row = [f"{curr:>3}" for curr in row]
                 print("  ".join(formatted_row))
             print("\n")
-            print("💡 Use any of the codes above for conversions and rates 💡")
+            print(Fore.YELLOW + "💡 Use any of the codes above for conversions and rates 💡")
         else:
-            print(" ❌ No currency data available.")
+            print(Fore.RED + " ❌ No currency data available.")
 
     def ask_continue(self) -> bool:
         """
@@ -415,7 +415,7 @@ class CurrencyExchangeApp:
             elif continue_choice in ['n', 'no']:
                 return False
             else:
-                print("❌ Please enter 'y' for yes or 'n' for no.")
+                print(Fore.RED + "❌ Please enter 'y' for yes or 'n' for no.")
 
     def display_goodbye(self):
         """
@@ -423,15 +423,19 @@ class CurrencyExchangeApp:
         Provides a friendly and professional sign-off.
         """
         # Border line for visual separation
-        print("\n" + "=" * 60)
+        print(Fore.YELLOW + "\n" + "=" * 60)
 
-        print(" Thank you for using Muma's Currency Exchange CLI!".center(60))
+        print(Fore.YELLOW + " Thank you for using Muma's Currency Exchange CLI!".center(60))
         print("\n")
-        print(" I truly hope you enjoyed using it! 🙂".center(60))
+        print(Fore.YELLOW + " I truly hope you enjoyed using it! 🙂".center(60))
         print("\n")
-        print("Have an absolutely wonderful day! 🌟".center(60))
-
-        print("=" * 60)
+        print(Fore.YELLOW + "Have an absolutely wonderful day! 🌟".center(60))
+        print("\n")
+        # Figlet object 'Small' font style for ASCII art
+        figlet = Figlet(font='small')
+        ascii_end = figlet.renderText("GOODBYE!".center(30))
+        print(Fore.YELLOW + Style.BRIGHT + ascii_end)
+        print(Fore.YELLOW + "=" * 60)
 
     def run(self):
         """
@@ -470,14 +474,14 @@ class CurrencyExchangeApp:
 
         except KeyboardInterrupt:
             # Just in case the user interrupts the app
-            print("\n\n Application interrupted by user.")
-            print("Goodbye!")
+            print(Fore.YELLOW + "\n\n Application interrupted by user.")
+            print(Fore.YELLOW + "Goodbye!")
             sys.exit(0)
 
         except Exception as e:
             # For any any unexpected exceptions
-            print(f"\n Unexpected error occurred: {e}")
-            print(" Please restart the application.")
+            print(Fore.RED + f"\n Unexpected error occurred: {e}")
+            print(Fore.YELLOW + " Please restart the application.")
             sys.exit(1)
 
 
