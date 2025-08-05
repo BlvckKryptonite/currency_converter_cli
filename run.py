@@ -1,17 +1,11 @@
 import requests
-import json
 import time
 import sys
 import re
-from typing import Dict, List, Optional, Tuple
+from typing import Optional, Tuple
 from colorama import init, Fore, Style
 from pyfiglet import Figlet
 init(autoreset=True)
-
-# TODO: Clean up unused imports later
-# (Currently imported for planned functionality)
-
-
 class CurrencyExchangeApp:
     """Main application class for currency exchange operations."""
     def __init__(self):
