@@ -3,6 +3,8 @@ import json
 import time
 import sys
 import re
+from colorama import init, Fore, Style
+init(autoreset=True)
 from typing import Dict, List, Optional, Tuple
 
 # TODO: Clean up unused imports later
@@ -195,7 +197,7 @@ class CurrencyExchangeApp:
         user experience."""
 
         print("=" * 60)
-        print(" WELCOME TO MUMA'S CURRENCY EXCHANGE CLI 👋".center(60))
+        print(Fore.YELLOW + Style.BRIGHT + " WELCOME TO MUMA'S CURRENCY EXCHANGE CLI 👋".center(60))
         print("\n")
         print(" This app helps you check exchange rates and convert "
               "currencies ".center(60))
