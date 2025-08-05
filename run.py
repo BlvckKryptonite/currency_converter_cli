@@ -3,9 +3,10 @@ import json
 import time
 import sys
 import re
-from colorama import init, Fore, Style
-init(autoreset=True)
 from typing import Dict, List, Optional, Tuple
+from colorama import init, Fore, Style
+from pyfiglet import Figlet
+init(autoreset=True)
 
 # TODO: Clean up unused imports later
 # (Currently imported for planned functionality)
@@ -195,16 +196,18 @@ class CurrencyExchangeApp:
     def display_welcome(self):
         """Display welcome message and application information for engaging
         user experience."""
-
-        print("=" * 60)
-        print(Fore.YELLOW + Style.BRIGHT + " WELCOME TO MUMA'S CURRENCY EXCHANGE CLI 👋".center(60))
-        print("\n")
-        print(" This app helps you check exchange rates and convert "
-              "currencies ".center(60))
-        print(" in real time 🙂".center(60))
-        print("\n")
-        print(" Data provided by Fawaz Ahmed Currency API".center(60))
-        print("=" * 60)
+        
+        # Creates a Figlet object using the 'slant' font style for ASCII art
+        figlet = Figlet(font='small')
+        print(Fore.YELLOW + Style.BRIGHT + "=" * 60)
+        ascii_title = figlet.renderText("WELCOME TO\nCURRENCY CLI!")
+        # Prints the ASCII art title in bright yellow color
+        print(Fore.YELLOW + Style.BRIGHT + ascii_title)
+        print(Fore.YELLOW + " This app helps you check exchange rates and ".center(60))
+        print(Fore.YELLOW + " convert currencies in real time 🙂".center(60))
+        print()
+        print(Fore.MAGENTA + " Data provided by Fawaz Ahmed Currency API".center(60))
+        print(Fore.YELLOW + Style.BRIGHT + "=" * 60)
 
     def display_menu(self):
         """This will display the main menu options."""
