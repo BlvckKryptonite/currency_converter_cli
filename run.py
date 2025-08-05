@@ -31,7 +31,7 @@ class CurrencyExchangeApp:
         print(f"\n{message}", end="")
         # Loop runs 'duration * 2' times to print a dot every 0.5 seconds
         for _ in range(int(duration * 2)):
-            print(".", end="", flush=True)
+            print(Fore.GREEN + ".", end="", flush=True)
             time.sleep(0.5)
 
     def validate_currency_code(self, currency: str) -> bool:
@@ -85,7 +85,7 @@ class CurrencyExchangeApp:
         """
         try:
             # To display a simple loading animation for user experience
-            self.show_loading("Fetching supported currencies")
+            self.show_loading(Fore.GREEN + "Fetching supported currencies")
 
             # Make GET request to the API's /currencies.json
             response = requests.get(
@@ -135,7 +135,7 @@ class CurrencyExchangeApp:
         """
         try:
             # Display loading animation again for UX polish
-            self.show_loading("Fetching exchange rate")
+            self.show_loading(Fore.GREEN + "Fetching exchange rate")
 
             # Build the API endpoint URL using the from_currency
             url = f"{self.api_base}/currencies/{from_currency.lower()}.json"
@@ -200,13 +200,15 @@ class CurrencyExchangeApp:
         # Creates a Figlet object using the 'slant' font style for ASCII art
         figlet = Figlet(font='small')
         print(Fore.YELLOW + Style.BRIGHT + "=" * 60)
-        ascii_title = figlet.renderText("WELCOME TO\nCURRENCY CLI!")
+        ascii_title = figlet.renderText("HELLO!".center(35))
         # Prints the ASCII art title in bright yellow color
         print(Fore.YELLOW + Style.BRIGHT + ascii_title)
+        print(Fore.YELLOW + "Welcome to Muma's Currency Exchange CLI 👋".center(60))
+        print()
         print(Fore.YELLOW + " This app helps you check exchange rates and ".center(60))
         print(Fore.YELLOW + " convert currencies in real time 🙂".center(60))
         print()
-        print(Fore.MAGENTA + " Data provided by Fawaz Ahmed Currency API".center(60))
+        print(Fore.YELLOW + Style.BRIGHT + " Data provided by Fawaz Ahmed Currency API".center(60))
         print(Fore.YELLOW + Style.BRIGHT + "=" * 60)
 
     def display_menu(self):
@@ -300,7 +302,7 @@ class CurrencyExchangeApp:
 
         rate = self.get_exchange_rate(from_currency, to_currency)
         if rate is not None:
-            print(f"\n ✅ SUCCESS!")
+            print(Fore.GREEN + f"\n ✅ SUCCESS!")
             print(f" 📊 Exchange Rate: 1 {from_currency} = "
                   f"{rate:.4f} {to_currency}")
 
@@ -405,7 +407,7 @@ class CurrencyExchangeApp:
             # Will print a separator for better UX
             print("\n" + "─" * 50)
             continue_choice = input(
-                "Would you like to perform another operation? (y/n): "
+                Fore.YELLOW + "Would you like to perform another operation? (y/n): "
             ).strip().lower()
 
             if continue_choice in ['y', 'yes']:
@@ -439,7 +441,7 @@ class CurrencyExchangeApp:
             # Calls welcome message with app info
             self.display_welcome()
 
-            print(" Initializing application...")
+            print(Fore.GREEN + "Initializing application...")
             self.fetch_supported_currencies()
 
             # Main loop
