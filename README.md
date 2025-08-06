@@ -2,22 +2,23 @@
 
 Welcome to the Currency Exchange CLI — a Python-based terminal application that enables users to check exchange rates, convert currencies, and explore supported currency codes using real-time data via the Fawaz Ahmed Currency API.
 
-[Here is the live version of my project 🔗](https://currency-converter-cli-fad75cd3b79c.herokuapp.com/)
+[Live Demo 🔗](https://currency-converter-cli-fad75cd3b79c.herokuapp.com/)
 
-![App Screenshot](assets/images/cli_mockup.png) 
+![App Screenshot](assets/images/cli_mockup.png)
 
 ---
 
 ## Table of Contents
-
 - [Overview](#overview)
+- [Real-World Rationale](#real-world-rationale)
 - [Features](#features)
 - [User Stories](#user-stories)
 - [Flowchart](#flowchart)
 - [Technologies Used](#technologies-used)
-- [How to Run](#how-to-run)
+- [How to Run Locally](#how-to-run-locally)
 - [Deployment](#deployment)
 - [Testing](#testing)
+- [Color Palette](#color-palette)
 - [Known Issues](#known-issues)
 - [Future Enhancements](#future-enhancements)
 - [Credits](#credits)
@@ -26,113 +27,118 @@ Welcome to the Currency Exchange CLI — a Python-based terminal application tha
 
 ## Overview
 
-This CLI project is designed for users who want quick and reliable access to currency conversion tools directly from the terminal. The application:
-- Supports real-time currency exchange rates
-- Performs conversions
-- Validates inputs
-- Is fully optimized for a terminal width of 80x24 (Code Institute standard)
+This CLI project is designed for users who want quick and reliable access to currency conversion tools directly from the terminal. It provides:
+- Real-time exchange rate lookups
+- Secure and accurate currency conversions
+- Robust input validation
+- Clean CLI formatting with colorized outputs
 
-This project aligns with my long-term fintech goals and showcases clean, maintainable, and functional Python development in a real-world context.
+The application is optimized for the Code Institute's standard terminal dimensions (80x24), ensuring accessibility and visual consistency.
+
+---
+
+## Real-World Rationale
+
+In today’s global economy, quick access to accurate currency conversion is essential for:
+- Digital nomads and freelancers managing international payments
+- Students and travelers converting currencies on the go
+- Small business owners comparing rates across borders
+
+This app offers a lightweight, no-login alternative to cluttered web tools. With clear CLI output, emoji-enhanced UX, and robust validation, it provides fast and reliable exchange services in a professional format.
 
 ---
 
 ## Features
 
-- **Currency Conversion** – Convert between any two valid currencies.
-- **Exchange Rate Check** – View real-time exchange rates between two currencies.
-- **Supported Currencies** – View a list of available and supported currency codes.
-- **User-friendly Menu** – Clear menu navigation and prompt validation.
-- **Input Validation** – Regex checks for currency codes and float validation for amounts.
-- **Loading Animation** – Simulated loading for API calls to enhance UX.
-- **Deployed on Heroku** – Easily accessible for demo and testing.
+- **Currency Conversion** – Convert between any two valid currencies using live rates.
+- **Exchange Rate Check** – Instantly view exchange rates.
+- **Supported Currencies** – Display a comprehensive list of valid currency codes.
+- **Input Validation** – Regex and numeric checks for robust input handling.
+- **Same-Currency Check** – Recognizes if user inputs same currency twice and returns early.
+- **User-Friendly CLI UX** – Clean menus, colored output, loading animation, and clear prompts.
+- **Graceful Error Handling** – Handles API failures, timeouts, and invalid entries.
+- **ASCII Art Headers** – Adds personality and engagement to CLI startup and exit.
 
 ---
 
-## User Stories 🧑‍💻 
+## User Stories 🧑‍💻
 
 - As a user, I want to convert money between currencies easily.
-- As a user, I want to view exchange rates without needing to use Google or external tools.
-- As a user, I want to see a list of supported currencies if I’m unsure of valid inputs.
-- As a user, I want clear feedback for invalid entries.
-- As a user, I want the tool to work reliably without needing technical setup.
+- As a user, I want to view exchange rates quickly without needing a browser.
+- As a user, I want clear feedback when I enter something invalid.
+- As a user, I want to see which currency codes are valid.
+- As a user, I want to avoid repeating operations manually.
+- As a user, I want the experience to be professional, fast, and visually intuitive.
 
 ---
 
 ## Flowchart
 
-To better understand the app’s logic and UX journey, see the flowchart diagram below:
+To better understand the application's logic and interaction flow:
 
 ![Currency Exchange Flowchart](assets/images/currency_con_flowchart.png)
-
 
 ---
 
 ## 🛠 Technologies Used
 
-### Core Languages
+### Core Language
 - [Python 3.12.8](https://www.python.org/)
 
-### Libraries
-- `requests` – For HTTP API requests
-- `json` – To handle API response parsing
-- `re` – For regular expression validation
-- `sys` – For exiting the application
-- `time` – To simulate loading
-- `typing` – For optional type hinting
+### Libraries & Frameworks
+- `requests` – Fetches live exchange data via API
+- `json` – Used for safe handling of response data and exceptions
+- `re` – Regex for currency code validation
+- `time` – Simulates loading and timestamps
+- `sys` – Graceful exit on interrupt/errors
+- `typing` – Static type hints (`Optional`, `Tuple`)
+- `colorama` – Adds color/styling to terminal output
+- `pyfiglet` – Displays large ASCII-style headers for visual UX
 
 ### External API
-
-- [Fawaz Ahmed Currency API](https://github.com/fawazahmed0/currency-api)
+- **[Fawaz Ahmed Currency API](https://github.com/fawazahmed0/currency-api)**
+  - CDN-delivered JSON
+  - Covers over 200 currency codes
+  - Crypto and fiat supported
   - No API key required
-  - CDN-delivered JSON exchange data
-  - Over 200 currencies supported including crypto
 
 ---
 
 ## How to Run Locally
 
 ### 1. Clone the Repository
-
+```bash
 git clone https://github.com/BlvckKryptonite/currency_converter_cli.git
+cd currency_converter_cli
+```
 
 ### 2. Create a Virtual Environment
+- In VSCode: Press Ctrl+Shift+P → "Python: Create Environment"
+- Choose: `venv` and select a Python 3.x version
 
-- As guided by Code Institute's "Getting hand's on with venv":
-   - In the command palette, type: create environment and select Python: Create Environment…
-   - Choose Venv from the dropdown list.
-   - Choose the Python version
-   - A .venv folder appear in the file explorer pane to show that the virtual environment has been created.
- 
 ### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-- pip install -r requirements.txt
-
-### 4. Install requests and add it to the requirements.txt file
-
-- pip install requests
-
-### 4. Run the application
-
-- python3 run.py
+### 4. Run the App
+```bash
+python3 run.py
+```
 
 ---
 
-##  Deployment
+## Deployment
 
-The application is deployed using [Heroku](https://heroku.com), which provides a cloud platform with terminal support for Python apps.
+The application is hosted using **Heroku** and is deployed via Code Institute's **mock terminal** integration for CLI apps.
 
-
-### Deployment Steps
-
-This project was deployed using Code Institue's mock terminal for Heroku:
-
-- Steps for deployment:
-
-  - Fork or clone this repository
-  - Create a new Heroku app
-  - Set buildpacks to Python and NodeJS in that specific order
-  - Link the Heroku app to the repository
-  - Click **Deploy**
+### Deployment Instructions
+1. Fork or clone the repo to your GitHub account
+2. Log into Heroku and create a new app
+3. Set buildpacks to: `python` (first), `nodejs` (second)
+4. Link your GitHub repo to the Heroku app
+5. Click **Deploy Branch**
+6. Click **Open App** to access the deployed terminal
 
 ---
 
@@ -142,45 +148,64 @@ This project was deployed using Code Institue's mock terminal for Heroku:
 
 | Feature                    | Test Description                                      | Result  |
 |---------------------------|--------------------------------------------------------|---------|
-| Exchange Rate Viewing     | Tested with valid and invalid currency codes          | Passed  |
-| Currency Conversion       | Tested with valid inputs, small/large numbers         | Passed  |
-| View Supported Currencies | Verified list from API                                | Passed  |
-| Currency Code Validation  | Checked with lowercase, empty, and incorrect formats  | Passed  |
-| Amount Validation         | Tested negative, zero, non-numeric inputs             | Passed  |
-| Menu Navigation           | Entered invalid choices to trigger validation         | Passed  |
-| CLI Layout                | Verified readability on 80x24 terminal                | Passed  |
+| Exchange Rate Viewing     | Valid/invalid currencies, timeout handling            | Passed  |
+| Currency Conversion       | Positive/negative/zero inputs, valid conversions     | Passed  |
+| View Supported Currencies | Verified full list from live API                     | Passed  |
+| Same-Currency Validation  | Checks if same code used twice and bypasses API      | Passed  |
+| Currency Code Validation  | Tests regex match, length, case sensitivity          | Passed  |
+| Amount Validation         | Rejection of strings, symbols, zero, negatives       | Passed  |
+| Menu Navigation           | Invalid entries re-prompt until correct input        | Passed  |
+| Graceful Interruptions    | KeyboardInterrupt exits without traceback            | Passed  |
+| CLI Layout                | All text fits 80x24 standard terminal                | Passed  |
 
-### Validators Used
-
+### Validation & Linters
 - [CI's PEP8 Python Validator](https://pep8ci.herokuapp.com/)
+- No major errors or warnings remain (all E501 long lines resolved)
 
-- ![Linter Validation C´Screenshot](assets/images/linter_validation_screenshot.png)
-
----
-
-## Noteworth Issues
-
-- The Heroku-hosted app may have a short delay when waking from sleep (common on the free tier).
-- The API (Fawaz Ahmed's CDN) may temporarily lag due to high usage or CDN refresh intervals.
-- **Heads-up ⚠️**: This CLI application is optimized for desktop terminal use and performs best in environments with standard terminal dimensions (80x24). While it can technically be run on mobile browsers, some users may experience input delays, slower animations, or minor formatting issues due to limitations in mobile terminal emulation
+![Linter Validation Screenshot](assets/images/linter_validation_screenshot.png)
 
 ---
 
-## Potential Future Enhancements
+## Color Palette
 
-- Add historical exchange rate checking
-- Save session history of conversions
-- Enhance visuals with `colorama` or terminal tables
-- Add offline caching of currency data
-- **Add Graphical User Interface (GUI):** Convert the app into a GUI or web-based version using frameworks such as Flask or Django (with a REST API backend) for smoother cross-device compatibility.
-- **Responsive Web Terminal:** Implement a lightweight responsive terminal emulator for better mobile performance.
-- **Historical Exchange Rates:** Add a feature to view past exchange rates based on date selection.
-- **Currency Trends Dashboard:** Graph monthly or weekly currency trends using APIs like exchangerate.host or Fawaz API with charting libraries.
-- **Multi-Language Support:** Offer localization for global users.
+The CLI uses a consistent and meaningful color palette via the `colorama` library:
+
+- **Yellow** (`Fore.YELLOW`): Used for main headings, borders, and prompts like welcome/goodbye messages
+- **Bright Yellow** (`Fore.YELLOW + Style.BRIGHT`): Used for emphasis (e.g. API credit)
+- **White** (`default text`): Used for standard body messages and instructions
+- **Green** (`Fore.GREEN`): Used for successful actions, loading animations, confirmations
+- **Red** (`Fore.RED`): Used for all error messages and invalid input feedback
+
+This design ensures that important information stands out while keeping the interface visually accessible.
+
+---
+
+## Known Issues
+
+- Small delay when Heroku app spins up from sleep
+- Mobile terminal emulation may distort layout slightly
+- API may lag during high usage or refresh intervals (CDN-based)
+
+---
+
+## Future Enhancements
+
+- Add historical exchange rate lookups
+- Track and save conversion history per session
+- Cache supported currencies offline for faster reloads
+- Integrate tabular display using `tabulate` or `rich`
+- Add a full GUI using `Tkinter` or build a Flask front-end
+- Add language localization (e.g., French, Spanish, Swahili)
+- Implement unit tests using `pytest`
 
 ---
 
 ## Credits
 
 - **API Provider**: [Fawaz Ahmed Currency API](https://github.com/fawazahmed0/currency-api)
-- **Template**: [Code Institute Python Essentials Template](https://github.com/Code-Institute-Org/python-essentials-template)
+- **ASCII Art Library**: [pyfiglet](https://pypi.org/project/pyfiglet/)
+- **Color Formatting**: [colorama](https://pypi.org/project/colorama/)
+- **Project Template**: [Code Institute Python Essentials Template](https://github.com/Code-Institute-Org/python-essentials-template)
+- **README Review Inspiration**: [Macro Calculator README by josswe26](https://github.com/josswe26/macro-calculator)
+
+---
