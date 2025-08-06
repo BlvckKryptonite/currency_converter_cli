@@ -134,12 +134,27 @@ python3 run.py
 The application is hosted using **Heroku** and is deployed via Code Institute's **mock terminal** integration for CLI apps.
 
 ### Deployment Instructions
+### Deployment Instructions
+
 1. Fork or clone the repo to your GitHub account
-2. Log into Heroku and create a new app
-3. Set buildpacks to: `python` (first), `nodejs` (second)
-4. Link your GitHub repo to the Heroku app
-5. Click **Deploy Branch**
-6. Click **Open App** to access the deployed terminal
+2. Run `pip3 freeze > requirements.txt` in your terminal to generate the required dependencies file
+3. Commit and push the updated `requirements.txt` file to GitHub
+4. Log into [Heroku](https://heroku.com) and click **"Create new app"**
+5. Enter a unique **App Name** and choose your **Region**, then click **Create App**
+6. Under the **Settings** tab:
+   - Scroll to **Config Vars** and click **"Reveal Config Vars"**
+   - *Add `PORT = 8000` 
+7. Scroll to the **Buildpacks** section and click **Add Buildpack**:
+   - First, add `python`
+   - Then, add `nodejs`
+   - Click **Save Changes**
+8. Go to the **Deploy** tab:
+   - Select **GitHub** as the deployment method
+   - Click **Connect to GitHub**
+   - Search for your repository and click **Connect**
+9. Enable **Automatic Deploys** or click **Deploy Branch** to trigger a manual deployment
+10. Once the build is complete, click **Open App** to launch the deployed terminal app
+
 
 ---
 
@@ -221,6 +236,25 @@ This design ensures that important information stands out while keeping the inte
 - ⚠️ **Heads-up:** This CLI application is optimized for desktop terminal use and performs best in environments with standard terminal dimensions (80x24). While it can technically be run on mobile browsers, some users may experience input delays, slower animations, or minor formatting issues due to limitations in mobile terminal emulation.
 
 ---
+
+## ✅ User Stories Fulfilled
+
+This application successfully delivers on all stated user stories:
+
+| User Story                                                               | Feature Implemented                                           |
+|--------------------------------------------------------------------------|----------------------------------------------------------------|
+| Convert money between two currencies                                     | Currency Conversion menu with input validation                |
+| View exchange rates without needing a browser                            | Exchange Rate Viewer using live API calls                     |
+| See valid currency codes if unsure                                       | 'View Supported Currencies' menu with full list from API      |
+| Receive clear feedback when I enter invalid data                         | Regex checks, detailed error messages, and user re-prompts    |
+| Avoid repeating operations manually                                      | Post-operation prompt asks user if they'd like to continue    |
+| Experience a clean and professional terminal interface                   | Consistent CLI formatting with headings, colors, and UX flow  |
+
+All features are fully implemented and tested (see [Testing](#testing)).  
+This confirms that **all user stories have been achieved**.
+
+---
+
 
 ## Future Enhancements
 
