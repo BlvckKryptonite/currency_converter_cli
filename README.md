@@ -97,8 +97,9 @@ To better understand the application's logic and interaction flow:
 
 ### External API
 - **[Fawaz Ahmed Currency API](https://github.com/fawazahmed0/currency-api)**
+- Reasons it was selected over other APIs:
+  - Covers over 300 currency codes at the time of writing this
   - CDN-delivered JSON
-  - Covers over 200 currency codes
   - Crypto and fiat supported
   - No API key required
 
@@ -158,6 +159,38 @@ The application is hosted using **Heroku** and is deployed via Code Institute's 
 | Graceful Interruptions    | KeyboardInterrupt exits without traceback            | Passed  |
 | CLI Layout                | All text fits 80x24 standard terminal                | Passed  |
 
+### Visual Testing Evidence (Screenshots)
+
+> Below are real screenshots from terminal sessions showing successful interactions with the CLI.
+
+#### 1. Exchange Rate Viewing
+
+ - Input should **always** be 3 letter code.
+ - Input handling and helpful hint dsplayed if invalid three letter code is submitted.
+ - Invalid entries re-prompt until correct input.
+
+![Exchange Rate Screenshot](assets/images/exchange_rate.png)
+
+#### 2. Currency Conversion 
+- Currency input should always be a valid three letter code.
+- Numerical inputs should always be positive.
+- Same currency code bypasses the API and displays a message to the user.
+
+![Currency Conversion Validation Screenshot](assets/images/convert_current_validation.png)
+
+
+- Special characters (e.g "$", "€") are not allowed.
+- Rejection of strings, symbols, zero, negatives
+- Successful conversion displays sucess message and exact time of conversion ✅
+
+![Currency Conversion Sucess Screenshot](assets/images/convert_currency_success.png)
+
+#### 3. Supported Currencies List
+- fetches full list of supported currencies from API .
+- Displays full list to users.
+
+![Supported Currencies Screenshot](assets/images/supported_currencies.png)
+
 ### Validation & Linters
 - [CI's PEP8 Python Validator](https://pep8ci.herokuapp.com/)
 - No major errors or warnings remain (all E501 long lines resolved)
@@ -170,11 +203,11 @@ The application is hosted using **Heroku** and is deployed via Code Institute's 
 
 The CLI uses a consistent and meaningful color palette via the `colorama` library:
 
-- **Yellow** (`Fore.YELLOW`): Used for main headings, borders, and prompts like welcome/goodbye messages
-- **Bright Yellow** (`Fore.YELLOW + Style.BRIGHT`): Used for emphasis (e.g. API credit)
-- **White** (`default text`): Used for standard body messages and instructions
-- **Green** (`Fore.GREEN`): Used for successful actions, loading animations, confirmations
-- **Red** (`Fore.RED`): Used for all error messages and invalid input feedback
+- **Yellow** 🟡 (`Fore.YELLOW`): Used for main headings, borders, and prompts like welcome/goodbye messages
+- **Bright Yellow** 🌕 (`Fore.YELLOW + Style.BRIGHT`): Used for emphasis (e.g. API credit)
+- **White** ⚪️ (`default text`): Used for standard body messages and instructions
+- **Green** 🟢 (`Fore.GREEN`): Used for successful actions, loading animations, confirmations
+- **Red** 🔴 (`Fore.RED`): Used for all error messages and invalid input feedback
 
 This design ensures that important information stands out while keeping the interface visually accessible.
 
@@ -185,6 +218,7 @@ This design ensures that important information stands out while keeping the inte
 - Small delay when Heroku app spins up from sleep
 - Mobile terminal emulation may distort layout slightly
 - API may lag during high usage or refresh intervals (CDN-based)
+- ⚠️ **Heads-up:** This CLI application is optimized for desktop terminal use and performs best in environments with standard terminal dimensions (80x24). While it can technically be run on mobile browsers, some users may experience input delays, slower animations, or minor formatting issues due to limitations in mobile terminal emulation.
 
 ---
 

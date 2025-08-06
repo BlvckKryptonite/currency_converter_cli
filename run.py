@@ -260,8 +260,7 @@ class CurrencyExchangeApp:
             if not self.validate_currency_code(currency):
                 # Variable to comply with PEP8 line length limit
                 inv_code = ("❌ Invalid currency code. Please enter a 3-letter "
-                "code (e.g: USD, EUR)."
-                )
+                            "code (e.g: USD, EUR).")
                 print(Fore.RED + inv_code)
                 continue
             # Check if we have currency list and validate against it
