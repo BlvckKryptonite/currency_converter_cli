@@ -1,30 +1,31 @@
-# fly.toml app configuration generated for currency_converter_cli
+# fly.toml app configuration file generated for currency-converter-cli on 2026-05-16T22:08:37+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = "currency-converter-cli"
-primary_region = "iad"
+app = 'currency-converter-cli'
+primary_region = 'iad'
 
 [build]
-  dockerfile = "Dockerfile"
-
-[env]
-  # Add any environment variables your app needs here
-  # PORT will be automatically set by Fly.io
+  dockerfile = 'Dockerfile'
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 1
 
   [http_service.concurrency]
-    type = "connections"
+    type = 'connections'
     hard_limit = 1000
     soft_limit = 800
 
 [checks]
   [checks.alive]
-    type = "tcp"
-    interval = "15s"
+    type = "http"
+    interval = "30s"
     timeout = "10s"
-    grace_period = "5s"
+    grace_period = "10s"
+    method = "GET"
+    path = "/"
