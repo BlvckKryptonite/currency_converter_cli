@@ -1,0 +1,9 @@
+# Fly.io configuration
+# This file helps with CLI interactions and deployment settings
+
+[core]
+# Leave app name blank to prompt during deployment
+app = ""
+
+[env]
+# Add environment-specific configs here
