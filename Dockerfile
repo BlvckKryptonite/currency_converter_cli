@@ -1,41 +1,42 @@
-# Stage 1: Build Python dependencies
-FROM python:3.12-slim as python-builder
+# ---- Python builder stage ----
+# I'm using a separate stage to install Python dependencies cleanly
+FROM python:3.12-slim AS python-builder
 
 WORKDIR /tmp
-
 COPY requirements.txt .
 RUN pip install --no-cache-dir --user -r requirements.txt
 
-# Stage 2: Runtime image with Node.js
+
+# ---- Final stage ----
+# I'm using the node:20-slim base since this is a Code Institute mock terminal app
+# that wraps the Python CLI in a Node/xterm.js web interface
 FROM node:20-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install Python3 and curl from Debian's default repos
+# Note: python3.12 is not available via apt on Bookworm — python3 (3.11) is used instead
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3.12 \
+    python3 \
+    python3-pip \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy Python packages from builder stage
+# Copy installed Python packages from builder stage
 COPY --from=python-builder /root/.local /root/.local
 
-# Copy Node.js dependencies
-COPY package.json ./
-RUN npm install --production
+# Make sure Python user packages are on the PATH
+ENV PATH=/root/.local/bin:$PATH
 
-# Copy application code
+# Copy package.json first for better Docker layer caching
+COPY package.json .
+RUN npm install
+
+# Copy the rest of the project
 COPY . .
 
-# Set environment variables
-ENV PATH=/root/.local/bin:$PATH
-ENV PORT=8080
-ENV NODE_ENV=production
-ENV PYTHONUNBUFFERED=1
+# Expose the port the Node server listens on
+EXPOSE 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:${PORT}/ || exit 1
-
-# Run the Node.js web server (which serves the terminal interface)
+# Start the Node server which runs the mock terminal
 CMD ["node", "index.js"]
