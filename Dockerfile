@@ -27,7 +27,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY --from=python-builder /root/.local /root/.local
 
 # Make sure Python user packages are on the PATH
-ENV PATH=/root/.local/bin:$PATH
+ENV PATH=/root/.local/bin:$PATH \
+    PYTHONPATH=/root/.local/lib/python3.11/site-packages
 
 # Copy package.json first for better Docker layer caching
 COPY package.json .
