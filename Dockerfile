@@ -3,7 +3,7 @@ FROM node:20-slim
 WORKDIR /app
 
 # Install Python for the CLI app
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update --allow-releaseinfo-change && apt-get install -y --no-install-recommends \
     python3.12 \
     python3-pip \
     curl \
