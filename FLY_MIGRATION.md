@@ -4,9 +4,16 @@ This guide walks through deploying your Currency Converter CLI app to Fly.io.
 
 ## What's Been Set Up
 
-- **`fly.toml`** - Main Fly.io configuration file
-- **`Dockerfile`** - Container configuration for Python 3.12
+- **`fly.toml`** - Main Fly.io configuration file with TCP health checks
+- **`Dockerfile`** - Container with Node.js web server + Python CLI (serves web terminal interface)
 - **`.dockerignore`** - Optimizes Docker build by excluding unnecessary files
+
+### Important: App Architecture
+Your app is a **web-based terminal interface** that runs via:
+1. **Node.js** (Total.js framework) - serves the web terminal UI and WebSocket
+2. **Python CLI** - runs the currency converter logic inside the terminal
+
+The fixed Dockerfile runs `node index.js` as the entry point, which properly serves the web interface.
 
 ## Prerequisites
 

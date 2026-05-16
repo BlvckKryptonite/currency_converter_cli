@@ -24,9 +24,7 @@ primary_region = "iad"
 
 [checks]
   [checks.alive]
-    type = "http"
-    interval = "30s"
+    type = "tcp"
+    interval = "15s"
     timeout = "10s"
-    grace_period = "10s"
-    method = "GET"
-    path = "/"
+    grace_period = "5s"
