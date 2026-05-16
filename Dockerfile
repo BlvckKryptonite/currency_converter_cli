@@ -1,26 +1,34 @@
+# Stage 1: Build Python dependencies
+FROM python:3.12-slim as python-builder
+
+WORKDIR /tmp
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+# Stage 2: Runtime image with Node.js
 FROM node:20-slim
 
 WORKDIR /app
 
-# Install Python for the CLI app
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.12 \
-    python3-pip \
     curl \
     && rm -rf /var/lib/apt/lists/*
+
+# Copy Python packages from builder stage
+COPY --from=python-builder /root/.local /root/.local
 
 # Copy Node.js dependencies
 COPY package.json ./
 RUN npm install --production
 
-# Copy Python requirements and install
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
 # Copy application code
 COPY . .
 
 # Set environment variables
+ENV PATH=/root/.local/bin:$PATH
 ENV PORT=8080
 ENV NODE_ENV=production
 ENV PYTHONUNBUFFERED=1
