@@ -2,7 +2,7 @@
 
 Welcome to the Currency Exchange CLI — a Python-based terminal application that enables users to check exchange rates, convert currencies, and explore supported currency codes using real-time data via the Fawaz Ahmed Currency API.
 
-[Live Demo 🔗](https://currency-converter-cli-fad75cd3b79c.herokuapp.com/)
+[Live Demo 🔗](https://currency-converter-cli.fly.dev/)
 
 ![App Screenshot](assets/images/cli_mockup.png)
 
@@ -131,10 +131,9 @@ python3 run.py
 
 ## Deployment
 
-The application is hosted using **Heroku** and is deployed via Code Institute's **mock terminal** integration for CLI apps.
+The application was originally hosted on **Heroku** and deployed via Code Institute's **mock terminal** integration for CLI apps. It has since been migrated to **Fly.io** following Heroku's removal of its free tier.
 
-### Deployment Instructions
-### Deployment Instructions
+### Original Heroku Deployment
 
 1. Fork or clone the repo to your GitHub account
 2. Run `pip3 freeze > requirements.txt` in your terminal to generate the required dependencies file
@@ -143,7 +142,7 @@ The application is hosted using **Heroku** and is deployed via Code Institute's 
 5. Enter a unique **App Name** and choose your **Region**, then click **Create App**
 6. Under the **Settings** tab:
    - Scroll to **Config Vars** and click **"Reveal Config Vars"**
-   - *Add `PORT = 8000` 
+   - Add `PORT = 8000`
 7. Scroll to the **Buildpacks** section and click **Add Buildpack**:
    - First, add `python`
    - Then, add `nodejs`
@@ -155,6 +154,92 @@ The application is hosted using **Heroku** and is deployed via Code Institute's 
 9. Enable **Automatic Deploys** or click **Deploy Branch** to trigger a manual deployment
 10. Once the build is complete, click **Open App** to launch the deployed terminal app
 
+---
+
+### Migration to Fly.io
+
+The app was migrated to [Fly.io](https://fly.io) as an alternative to Heroku. The process involved several fixes that are worth documenting for anyone attempting a similar migration.
+
+#### Why Fly.io?
+
+Fly.io offers a generous free tier and Docker-based deployments that give you more control over your environment compared to Heroku's buildpack system. The trade-off is that it requires a bit more configuration upfront.
+
+#### Migration Steps
+
+1. Install the Fly.io CLI and log in:
+brew install flyctl
+fly auth login
+
+2. From the project root, run:
+fly launch
+   This generates a `fly.toml` configuration file and provisions the app.
+
+3. Set the `PORT` environment variable in `fly.toml` and make sure `internal_port` matches:
+```toml
+   [env]
+     PORT = '8080'
+
+   [http_service]
+     internal_port = 8080
+```
+
+4. Deploy the app:
+`fly deploy`
+
+#### Issues Encountered & How They Were Fixed
+
+**1. `python3.12` not found during Docker build**
+
+The original Dockerfile used `node:20-slim` as the base image (required for the Code Institute mock terminal) and attempted to install `python3.12` via apt. However, `node:20-slim` runs on Debian Bookworm, which only ships with `python3` (3.11) in its default package repositories.
+
+Fix: Replace `python3.12` with `python3` and `python3-pip` in the apt install command.
+
+**2. `node-pty` failed to compile**
+
+`node-pty` is a native Node.js module that requires C build tools to compile from source. The slim base image doesn't include these by default.
+
+Fix: Add `build-essential` to the apt install command, which provides `make`, `gcc`, and the other tools needed for native module compilation.
+
+**3. Python packages not found at runtime**
+
+The original Dockerfile used a multi-stage build — installing Python packages in a `python:3.12-slim` builder stage and copying them into the Node stage. Due to the difference in Python versions between the two stages (3.12 vs 3.11), the packages were copied to a path that the runtime Python couldn't find.
+
+Fix: Drop the multi-stage build entirely and install Python dependencies directly in the final stage using:
+pip3 install --no-cache-dir -r requirements.txt --break-system-packages
+This is simpler and guarantees packages land exactly where the runtime Python expects them.
+
+**4. Port mismatch**
+
+The `fly.toml` `internal_port` and the `EXPOSE` directive in the Dockerfile were pointing to different ports, causing Fly.io to route traffic to a port the app wasn't listening on.
+
+Fix: Ensure `PORT` in `[env]`, `internal_port` in `[http_service]`, and `EXPOSE` in the Dockerfile all use the same port value.
+
+#### Final Dockerfile
+
+```dockerfile
+FROM node:20-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    curl \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt --break-system-packages
+
+COPY package.json .
+RUN npm install
+
+COPY . .
+
+EXPOSE 8080
+
+CMD ["node", "index.js"]
+```
 
 ---
 
